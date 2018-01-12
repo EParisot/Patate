@@ -36,8 +36,6 @@ def Brake(speed):
   MOT2v.ChangeFrequency(speed - 0.2)
 
 def Stop():
-  MOT1v.ChangeFrequency(0)
-  MOT2v.ChangeFrequency(0)
   MOT1v.stop()
   MOT2v.stop()
   
