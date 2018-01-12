@@ -52,7 +52,6 @@ def TurnL(speed):
 #IA here
 
 
-
-
-
+#Stop the machine and release GPIO Pins
+Stop()
 GPIO.cleanup()
