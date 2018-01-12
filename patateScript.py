@@ -1,4 +1,7 @@
+from time import sleep
 import RPi.GPIO as GPIO
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 #init GPIO with BCM numberings
 GPIO.setmode(GPIO.BCM)
@@ -47,11 +50,28 @@ def TurnL(speed):
   MOT2v.ChangeFrequency(speed - 0.1)
 
 
-#Video here
+# Video here ############################################
+camera = PiCamera()
+camera.resolution = (320, 240)
+camera.framerate = 60
+rawCapture = PiRGBArray(camera, size=(320, 240))
+# Allow cam to warmup
+sleep(0.1)
 
-#IA here
+# Capture frames exemples
+#for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+#  # grab Numpy Array
+#  image = frame.array
+#  
+#  # Process images here
+#  
+#  # Clear the stream
+#  rawCapture.truncate(0)
 
 
-#Stop the machine and release GPIO Pins
+# IA here ##############################################
+
+
+#Stop the machine and release GPIO Pins#################
 Stop()
 GPIO.cleanup()
