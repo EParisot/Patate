@@ -1,10 +1,11 @@
 from time import sleep
+import msvcrt
 import RPi.GPIO as GPIO
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 #debug####
-import cv2
-###########
+#import cv2
+#####################################
 #init GPIO with BCM numberings
 GPIO.setmode(GPIO.BCM)
 
@@ -23,7 +24,6 @@ MOT1b = 13
 MOT2v = GPIO.PWM(16, 50)
 MOT2f = 21
 MOT2b = 20
-speed = 50
 
 def Forward(speed):
   GPIO.output(MOT1b, GPIO.LOW)
@@ -32,22 +32,23 @@ def Forward(speed):
   GPIO.output(MOT2f, GPIO.HIGH)
   MOT1v.start(speed)
   MOT2v.start(speed)
+  return (speed)
   
-def Brake(speed):
-  MOT1v.ChangeDutyCycle(speed - 20)
-  MOT2v.ChangeDutyCycle(speed - 20)
+def Brake(speed, delta):
+  MOT1v.ChangeDutyCycle(speed - delta)
+  MOT2v.ChangeDutyCycle(speed - delta)
 
 def Stop():
   MOT1v.stop()
   MOT2v.stop()
   
-def TurnR(speed):
-  MOT1v.ChangeDutyCycle(speed - 10)
-  MOT2v.ChangeDutyCycle(speed + 20)
+def TurnR(speed, ldelta, rdelta):
+  MOT1v.ChangeDutyCycle(speed + ldelta)
+  MOT2v.ChangeDutyCycle(speed - rdelta)
   
-def TurnL(speed):
-  MOT1v.ChangeDutyCycle(speed + 20)
-  MOT2v.ChangeDutyCycle(speed - 10)
+def TurnL(speed, ldelta, rdelta):
+  MOT1v.ChangeDutyCycle(speed - ldelta)
+  MOT2v.ChangeDutyCycle(speed + rdelta)
 
 
 # Video here ############################################
@@ -74,17 +75,21 @@ sleep(0.1)
 ##  if key == ord("q"):
 ##    break
 
-# IA here ##############################################
+# Wait for start
+print("Press 's' to Start !...")
+msvcrt.getch()
 
+# IA here ##############################################
+# Control example :
+##speed = Forward(speed)
+##sleep(1)
+##Brake(speed, 20)
+##sleep(1)
 ##Forward(speed)
 ##sleep(1)
-##Brake(speed)
+##TurnR(speed, 20, 10)
 ##sleep(1)
-##Forward(speed)
-##sleep(1)
-##TurnR(speed)
-##sleep(1)
-##TurnL(speed)
+##TurnL(speed, 10, 20)
 ##sleep(1)
 ##Stop()
 
