@@ -37,7 +37,6 @@ def Forward(speed):
 def Brake(speed, delta):
   MOT1v.ChangeDutyCycle(speed - delta)
   MOT2v.ChangeDutyCycle(speed - delta)
-  return (speed - delta)
 
 def Stop():
   MOT1v.stop()
@@ -93,21 +92,6 @@ msvcrt.getch()
 ##TurnL(speed, 10, 20)
 ##sleep(1)
 ##Stop()
-
-while True:
-    keycode = ord(msvcrt.getch())
-    if keycode == 27: #ESC
-        break
-    elif keycode == 224: #Special keys (arrows, f keys, ins, del, etc.)
-        keycode = ord(mscvrt.getch())
-        if keycode == 80: #Down arrow
-            speed = Brake(speed, 20)
-        elif keycode == 72: #Up arrow
-            speed = Forward(50)
-        elif keycode == : #Left arrow
-            TurnL(speed, 20)
-        elif keycode == : #Right arrow
-            TurnR(speed, 20)
 
 #Stop the machine and release GPIO Pins#################
 Stop()
