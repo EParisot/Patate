@@ -37,8 +37,8 @@ def callback(channel):
         speed2 = 0.08 / elapsed2
 
 # Track magnet interuptions
-GPIO.add_event_detect(4, GPIO.FALLING, callback=callback, bouncetime=30)
-GPIO.add_event_detect(17, GPIO.FALLING, callback=callback, bouncetime=30)
+GPIO.add_event_detect(4, GPIO.FALLING, callback=callback, bouncetime=50)
+GPIO.add_event_detect(17, GPIO.FALLING, callback=callback, bouncetime=50)
 
 # Loop over camera frames
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
