@@ -2,9 +2,13 @@ from time import sleep
 import RPi.GPIO as GPIO
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+from keras.models import load_model
 #debug####
 import cv2
 #####################################
+
+# Load Model:
+load_model('test_model.h5')
 
 #init GPIO with BCM numberings
 GPIO.setmode(GPIO.BCM)
@@ -26,54 +30,6 @@ MOT2f = 21
 MOT2b = 20
 speeds = [0, 0]
 
-def Forward(speeds, delta):
-    if speeds[0] != speeds[1]:
-        if speeds[0] > speeds[1]:
-            speeds[1] = speeds[0]
-        else:
-            speeds[0] = speeds[1]
-    elif speeds[0] + delta <= 100.0 and speeds[1] + delta <= 100.0:
-        speeds[0] = speeds[0] + delta
-        speeds[1] = speeds[1] + delta
-    GPIO.output(MOT1b, GPIO.LOW)
-    GPIO.output(MOT2b, GPIO.LOW)
-    GPIO.output(MOT1f, GPIO.HIGH)
-    GPIO.output(MOT2f, GPIO.HIGH)
-    MOT1v.start(speeds[0])
-    MOT2v.start(speeds[1])
-    return (speeds)
-
-def Brake(speeds, delta):
-    if speeds[0] > delta and speeds[1] > delta:
-        speeds[0] = speeds[0] - delta
-        speeds[1] = speeds[1] - delta
-    MOT1v.ChangeDutyCycle(speeds[0])
-    MOT2v.ChangeDutyCycle(speeds[1])
-    return (speeds)
-
-def Stop():
-    MOT1v.stop()
-    MOT2v.stop()
-    return ([0, 0])
-
-def TurnR(speeds, delta):
-    if speeds[0] + delta < 100.0:
-        speeds[0] = speeds[0] + delta
-        MOT1v.ChangeDutyCycle(speeds[0])
-    elif speeds[1] - delta > 0.0:
-        speeds[1] = speeds[1] - delta
-        MOT2v.ChangeDutyCycle(speeds[1])
-    return (speeds)
-
-def TurnL(speeds, delta):
-    if speeds[1] + delta < 100.0:
-        speeds[1] = speeds[1] + delta
-        MOT2v.ChangeDutyCycle(speeds[1])
-    elif speeds[0] - delta > 0.0:
-        speeds[0] = speeds[0] - delta
-        MOT1v.ChangeDutyCycle(speeds[0])
-    return (speeds)
-
 # Video here ############################################
 camera = PiCamera()
 camera.resolution = (320, 240)
@@ -89,25 +45,15 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 ##  # grab Numpy Array
   img = frame.array
 ##  # Process images here
+  #IA here:
 ##  # show the frame
   cv2.imshow("Frame", img)
   key = cv2.waitKey(1) & 0xFF
 ##  # Clear the stream
   rawCapture.truncate(0)
 ##  # if 'q' key pressed, break loop
-  if key == ord("p"):
+  if key == ord("q"):
     break
-# Control example :
-  elif key == ord("z"):
-    speeds = Forward(speeds, 20)
-  elif key == ord("s"):
-    speeds = Brake(speeds, 20)
-  elif key == ord("d"):
-    speeds = TurnR(speeds, 20)
-  elif key == ord("q"):
-    speeds = TurnL(speeds, 20)
-
-# IA here ##############################################
 
 
 
