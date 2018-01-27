@@ -2,9 +2,13 @@ from time import sleep
 import RPi.GPIO as GPIO
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+from keras.models import load_model
 #debug####
 import cv2
 #####################################
+
+# Load Model:
+load_model('test_model.h5')
 
 #init GPIO with BCM numberings
 GPIO.setmode(GPIO.BCM)
@@ -48,7 +52,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 ##  # Clear the stream
   rawCapture.truncate(0)
 ##  # if 'q' key pressed, break loop
-  if key == ord("p"):
+  if key == ord("q"):
     break
 
 
