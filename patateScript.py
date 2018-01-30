@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 from keras.models import load_model
+from PIL import Image
 #debug####
 import cv2
 #####################################
@@ -40,22 +41,37 @@ rawCapture = PiRGBArray(camera, size=(320, 240))
 # Allow cam to warmup
 sleep(0.1)
 
+MOT1v.start(0)
+MOT2V.start(0)
+
 ### Capture frames examples
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # grab Numpy Array
   img = frame.array
-##  # Process images here
+##  # convert to gray
+  img = Image.fromarray(img, 'L')
+##  # normalize
+  img /= 255
   #IA here:
+  image = []
+  image.insert(0, img)
+  preds = model.predict(image)
+  v1 = (np.argmax(preds[0], axis=1) + 1) * 10 
+  v2 = (np.argmax(preds[1], axis=1) + 1) * 10
+  MOT1v.ChangeDutyCycle(v1)
+  MOT2v.ChangeDutyCycle(v2)
 ##  # show the frame
   cv2.imshow("Frame", img)
   key = cv2.waitKey(1) & 0xFF
 ##  # Clear the stream
+  image.pop(0)
   rawCapture.truncate(0)
 ##  # if 'q' key pressed, break loop
   if key == ord("q"):
     break
 
-
+MOT1v.stop(0)
+MOT2V.stop(0)
 
 #Stop the machine and release GPIO Pins#################
 Stop()
