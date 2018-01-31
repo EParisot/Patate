@@ -1,12 +1,13 @@
 from time import sleep
 import RPi.GPIO as GPIO
-from picamera.array import PiRGBArray
 from picamera import PiCamera
+from picamera.array import PiRGBArray
 from keras.models import load_model
+import numpy as np
 #####################################
 
 # Load Model:
-load_model('test_model.h5')
+model = load_model('test_model.h5')
 
 #init GPIO with BCM numberings
 GPIO.setmode(GPIO.BCM)
@@ -26,7 +27,6 @@ MOT1b = 13
 MOT2v = GPIO.PWM(16, 50)
 MOT2f = 21
 MOT2b = 20
-speeds = [0, 0]
 
 # Video here ############################################
 camera = PiCamera()
@@ -39,17 +39,13 @@ rawCapture = PiRGBArray(camera, size=(160, 128))
 sleep(0.1)
 
 MOT1v.start(0)
-MOT2V.start(0)
+MOT2v.start(0)
 
 ### Capture frames examples
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # grab Numpy Array
   img = frame.array
-##  # normalize
-  img /= 255
-  #IA here:
-  image = []
-  image.insert(0, img)
+  image = np.array([img[:, :, :]])
   preds = model.predict(image)
   v1 = (np.argmax(preds[0], axis=1) + 1) * 10
   v2 = (np.argmax(preds[1], axis=1) + 1) * 10
@@ -62,7 +58,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
 MOT1v.stop(0)
-MOT2V.stop(0)
+MOT2v.stop(0)
 
 #Stop the machine and release GPIO Pins#################
 Stop()
