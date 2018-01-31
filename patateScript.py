@@ -35,8 +35,7 @@ camera.framerate = 60
 camera.hflip = True
 camera.vflip = True
 rawCapture = PiRGBArray(camera, size=(160, 128))
-# Allow cam to warmup
-sleep(0.1)
+
 
 MOT1v.start(0)
 MOT2v.start(0)
@@ -45,15 +44,20 @@ MOT2v.start(0)
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # grab Numpy Array
   img = frame.array
+  #debug
+  #import png
+  #png.from_array(img, 'L').save("test.png")
+  ######
   image = np.array([img[:, :, :]])
+  image = image.transpose(0, 2, 1, 3)
   preds = model.predict(image)
   v1 = (np.argmax(preds[0], axis=1) + 1) * 10
   v2 = (np.argmax(preds[1], axis=1) + 1) * 10
   MOT1v.ChangeDutyCycle(v1)
   MOT2v.ChangeDutyCycle(v2)
-  print("L = " + v1 + " - R = " + v2)
+  print("L = " + str(v1) + " - R = " + str(v2))
 ##  # Clear the stream
-  image.pop(0)
+  image = np.delete(image, 0)
   rawCapture.truncate(0)
 
 
