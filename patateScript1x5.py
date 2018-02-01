@@ -49,6 +49,7 @@ GPIO.output(MOT1f, 1)
 GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
+speed = 0.4
 
 try:
 ### Capture frames examples
@@ -58,20 +59,32 @@ try:
     image = np.array([img[:, :, :]])
     image = image.transpose(0, 2, 1, 3)
     preds = model.predict(image)
-    v1 = 0.4 * (np.argmax(preds[0], axis=1) + 1) * 10
-    v2 = 0.4 * (np.argmax(preds[1], axis=1) + 1) * 10
-    if v1 < v2:
-        GPIO.output(MOT2f, 1)
-        GPIO.output(MOT2b, 0)
-        GPIO.output(MOT1f, 0) 
+
+    if preds[0] == 0:
+        GPIO.output(MOT1f, 0)
         GPIO.output(MOT1b, 1)
-        v1 = v1 / 2
-    else:
+        v1 = (speed/2) * (np.argmax(preds[0], axis=1) + 1) * 10
+        v2 = speed * (np.argmax(preds[0], axis=1) + 1) * 10
+    elif preds[0] == 1:
         GPIO.output(MOT1f, 1)
-        GPIO.output(MOT1b, 0)
+        GPIO.output(MOT2f, 1)
+        v1 = 0
+        v2 = speed * (np.argmax(preds[0], axis=1) + 1) * 10
+    elif preds[0] == 2:
+        GPIO.output(MOT1f, 1)
+        GPIO.output(MOT2f, 1)
+        v1 = speed
+        v2 = speed
+    elif preds[0] == 3:
+        GPIO.output(MOT2f, 1)
+        GPIO.output(MOT2f, 1)
+        v1 = speed * (np.argmax(preds[0], axis=1) + 1) * 10
+        v2 = 0
+    elif preds[0] == 4:
         GPIO.output(MOT2f, 0)
         GPIO.output(MOT2b, 1)
-        v2 = v2 / 2
+        v1 = speed * (np.argmax(preds[0], axis=1) + 1) * 10
+        v2 = (speed/2) * (np.argmax(preds[0], axis=1) + 1) * 10
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
     print("L = " + str(v1) + " - R = " + str(v2))
