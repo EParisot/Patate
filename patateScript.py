@@ -32,21 +32,25 @@ MOT2b = 20
 # Video here ############################################
 camera = PiCamera()
 camera.resolution = (160, 128)
-camera.framerate = 60
+camera.framerate = 10
 camera.hflip = True
 camera.vflip = True
 rawCapture = PiRGBArray(camera, size=(160, 128))
 
 # Start loop
-print("Ready !...")
+print("Ready ! (press Ctrl+C to start/stop)...")
 try:
   while True:
     pass
 except KeyboardInterrupt:
   pass
 
+GPIO.output(MOT1f, 1)
+GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
+
+m1, m2 = 0
 
 try:
 ### Capture frames examples
@@ -56,10 +60,13 @@ try:
     image = np.array([img[:, :, :]])
     image = image.transpose(0, 2, 1, 3)
     preds = model.predict(image)
-    v1 = 0.5 * (np.argmax(preds[0], axis=1) + 1) * 10
-    v2 = 0.5 * (np.argmax(preds[1], axis=1) + 1) * 10
+    v1 = 0.2 * (np.argmax(preds[0], axis=1) + 1) * 10
+    v2 = 0.2 * (np.argmax(preds[1], axis=1) + 1) * 10
+    m1 = (v1 + m1)/2
+    m2 = (v2 + m2)/2
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
+
     print("L = " + str(v1) + " - R = " + str(v2))
 ##  # Clear the stream
     image = np.delete(image, 0)
@@ -71,4 +78,5 @@ MOT1v.stop(0)
 MOT2v.stop(0)
 
 #Stop the machine and release GPIO Pins#################
+print("Stop")
 GPIO.cleanup()
