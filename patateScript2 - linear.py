@@ -58,8 +58,8 @@ try:
     image = np.array([img[:, :, :]])
     image = image.transpose(0, 2, 1, 3)
     preds = model.predict(image)
-    v1 = 0.4 * preds[0] * 10
-    v2 = 0.4 * preds[1] * 10
+    v1 = 0.4 * preds[0][0] * 10
+    v2 = 0.4 * preds[1][0] * 10
     if v2 - v1 > 0.2:
         GPIO.output(MOT2f, 1)
         GPIO.output(MOT2b, 0)
