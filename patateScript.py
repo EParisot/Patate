@@ -31,11 +31,11 @@ MOT2b = 20
 
 # Video here ############################################
 camera = PiCamera()
-camera.resolution = (160, 128)
+camera.resolution = (250, 150)
 camera.framerate = 20
 camera.hflip = True
 camera.vflip = True
-rawCapture = PiRGBArray(camera, size=(160, 128))
+rawCapture = PiRGBArray(camera, size=(250, 150))
 
 # Start loop
 print("Ready ! (press Ctrl+C to start/stop)...")
@@ -57,7 +57,7 @@ try:
 ##  # grab Numpy Array
     img = frame.array
     image = np.array([img[:, :, :]])
-    image = image.transpose(0, 2, 1, 3)
+    #image = image.transpose(0, 2, 1, 3)
     pred = model.predict(img)
     prediction = list(pred[0])
     index_class = prediction.index(max(prediction))
