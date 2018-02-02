@@ -7,7 +7,7 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-1x5.h5')
+model = load_model('model-1x3.h5')
 print("Model Loaded")
 
 #init GPIO with BCM numberings
@@ -79,7 +79,7 @@ try:
         GPIO.output(MOT1b, 0)
         GPIO.output(MOT2f, 0)
         GPIO.output(MOT2b, 1)
-        v1 = 
+        v1 = speed
         v2 = speed/4
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
