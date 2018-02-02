@@ -7,7 +7,7 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-1x3-croped.h5')
+model = load_model('model-1x3-croped-all.h5')
 print("Model Loaded")
 
 #init GPIO with BCM numberings
