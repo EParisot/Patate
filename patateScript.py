@@ -7,7 +7,7 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-2x10.h5')
+model = load_model('autopilot.h5')
 print("Model Loaded")
 
 #init GPIO with BCM numberings
@@ -49,6 +49,7 @@ GPIO.output(MOT1f, 1)
 GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
+speed = 40
 
 try:
 ### Capture frames examples
@@ -57,21 +58,46 @@ try:
     img = frame.array
     image = np.array([img[:, :, :]])
     image = image.transpose(0, 2, 1, 3)
-    preds = model.predict(image)
-    v1 = 0.4 * (np.argmax(preds[0], axis=1) + 1) * 10
-    v2 = 0.4 * (np.argmax(preds[1], axis=1) + 1) * 10
-    if v2 - v1 > 0.2:
+    pred = model.predict(img)
+    prediction = list(pred[0])
+    index_class = prediction.index(max(prediction))
+
+    local_dir = -1 + 2 * float(index_class)/float(len(prediction)-1)
+    if local_dir == 0:
+        GPIO.output(MOT1f, 0)
+        GPIO.output(MOT1b, 1)
         GPIO.output(MOT2f, 1)
         GPIO.output(MOT2b, 0)
-        GPIO.output(MOT1f, 0) 
-        GPIO.output(MOT1b, 1)
-        v1 = v1 / 2
-    elif v1 - v2 > 0.2:
+        v1 = (speed/2)
+        v2 = speed
+    elif local_dir == 1:
+        GPIO.output(MOT1f, 1)
+        GPIO.output(MOT1b, 0)
+        GPIO.output(MOT2f, 1)
+        GPIO.output(MOT2b, 0)
+        v1 = 0
+        v2 = speed
+    elif local_dir == 2:
+        GPIO.output(MOT1f, 1)
+        GPIO.output(MOT1b, 0)
+        GPIO.output(MOT2f, 1)
+        GPIO.output(MOT2b, 0)
+        v1 = speed
+        v2 = speed
+    elif local_dir == 3:
+        GPIO.output(MOT1f, 1)
+        GPIO.output(MOT1b, 0)
+        GPIO.output(MOT2f, 1)
+        GPIO.output(MOT2b, 0)
+        v1 = speed
+        v2 = 0
+    elif local_dir == 4:
         GPIO.output(MOT1f, 1)
         GPIO.output(MOT1b, 0)
         GPIO.output(MOT2f, 0)
         GPIO.output(MOT2b, 1)
-        v2 = v2 / 2
+        v1 = speed
+        v2 = (speed/2)
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
     print("L = " + str(v1) + " - R = " + str(v2))
