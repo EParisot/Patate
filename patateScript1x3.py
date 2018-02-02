@@ -57,7 +57,6 @@ try:
 ##  # grab Numpy Array
     img = frame.array
     image = np.array([img[:, :, :]])
-    image = image.transpose(0, 2, 1, 3)
     preds = model.predict(image)
     preds = np.argmax(preds[0], axis=0)
     if preds == 0:

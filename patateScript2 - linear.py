@@ -56,7 +56,6 @@ try:
 ##  # grab Numpy Array
     img = frame.array
     image = np.array([img[:, :, :]])
-    image = image.transpose(0, 2, 1, 3)
     preds = model.predict(image)
     v1 = 0.4 * preds[0][0] * 10
     v2 = 0.4 * preds[1][0] * 10
