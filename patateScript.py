@@ -7,7 +7,7 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('test_model.h5')
+model = load_model('model-2x10.h5')
 print("Model Loaded")
 
 #init GPIO with BCM numberings
@@ -60,13 +60,13 @@ try:
     preds = model.predict(image)
     v1 = 0.4 * (np.argmax(preds[0], axis=1) + 1) * 10
     v2 = 0.4 * (np.argmax(preds[1], axis=1) + 1) * 10
-    if v1 < v2:
+    if v2 - v1 > 0.2:
         GPIO.output(MOT2f, 1)
         GPIO.output(MOT2b, 0)
         GPIO.output(MOT1f, 0) 
         GPIO.output(MOT1b, 1)
         v1 = v1 / 2
-    else:
+    elif v1 - v2 > 0.2:
         GPIO.output(MOT1f, 1)
         GPIO.output(MOT1b, 0)
         GPIO.output(MOT2f, 0)
