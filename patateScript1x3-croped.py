@@ -32,7 +32,7 @@ MOT2b = 20
 # Video here ############################################
 camera = PiCamera()
 camera.resolution = (160, 128)
-camera.framerate = 20
+camera.framerate = 60
 camera.hflip = True
 camera.vflip = True
 rawCapture = PiRGBArray(camera, size=(160, 128))
@@ -49,7 +49,7 @@ GPIO.output(MOT1f, 1)
 GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
-speed = 40
+speed = 15
 
 try:
 ### Capture frames examples
@@ -64,8 +64,8 @@ try:
         GPIO.output(MOT1b, 1)
         GPIO.output(MOT2f, 1)
         GPIO.output(MOT2b, 0)
-        v1 = speed/4
-        v2 = speed
+        v1 = 3 * speed
+        v2 = 3 * speed
     elif preds == 1:
         GPIO.output(MOT1f, 1)
         GPIO.output(MOT1b, 0)
@@ -78,8 +78,8 @@ try:
         GPIO.output(MOT1b, 0)
         GPIO.output(MOT2f, 0)
         GPIO.output(MOT2b, 1)
-        v1 = speed
-        v2 = speed/4
+        v1 = 3 * speed
+        v2 = 3 * speed
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
     print("L = " + str(v1) + " - R = " + str(v2))
