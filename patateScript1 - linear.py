@@ -58,28 +58,8 @@ try:
     img = frame.array
     image = np.array([img[:, :, :]])
     preds = model.predict(image)
-    preds = np.argmax(preds[0], axis=0)
-    if preds == 0:
-        GPIO.output(MOT1f, 0)
-        GPIO.output(MOT1b, 1)
-        GPIO.output(MOT2f, 1)
-        GPIO.output(MOT2b, 0)
-        v1 = speed/4
-        v2 = speed
-    elif preds == 1:
-        GPIO.output(MOT1f, 1)
-        GPIO.output(MOT1b, 0)
-        GPIO.output(MOT2f, 1)
-        GPIO.output(MOT2b, 0)
-        v1 = speed
-        v2 = speed
-    elif preds == 2:
-        GPIO.output(MOT1f, 1)
-        GPIO.output(MOT1b, 0)
-        GPIO.output(MOT2f, 0)
-        GPIO.output(MOT2b, 1)
-        v1 = speed
-        v2 = speed/4
+    v1 = preds[0][0][0] * 10
+    v2 = preds[1][0][0] * 10
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
     print("L = " + str(v1) + " - R = " + str(v2))
