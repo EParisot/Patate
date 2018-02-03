@@ -58,7 +58,7 @@ try:
     img = frame.array
     image = np.array([img[50:, :, :]])
     preds = model.predict(image)
-    preds = np.argmax(preds[0], axis=0)
+    preds = np.argmax(preds, axis=1)
     if preds == 0:
         GPIO.output(MOT1f, 0)
         GPIO.output(MOT1b, 1)
