@@ -32,7 +32,7 @@ MOT2b = 20
 # Video here ############################################
 camera = PiCamera()
 camera.resolution = (160, 128)
-camera.framerate = 30
+camera.framerate = 60
 camera.hflip = True
 camera.vflip = True
 rawCapture = PiRGBArray(camera, size=(160, 128))
