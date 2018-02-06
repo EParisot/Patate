@@ -49,7 +49,7 @@ GPIO.output(MOT1f, 1)
 GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
-speed1 = 20
+speed1 = 25
 speed2 = 25
 
 try:
