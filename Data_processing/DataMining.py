@@ -3,14 +3,7 @@ import time
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 import cv2
-
-# Setup Camera
-camera = PiCamera()
-camera.resolution = (160, 128)
-camera.framerate = 60
-camera.hflip = True
-camera.vflip = True
-rawCapture = PiRGBArray(camera, size = (160, 120))
+#############################################
 
 # Setup GPIO Pins
 GPIO.setmode(GPIO.BCM)
@@ -22,6 +15,14 @@ start_time1 = time.time()
 speed1 = 0
 start_time2 = time.time()
 speed2 = 0
+
+# Setup Camera
+camera = PiCamera()
+camera.resolution = (160, 128)
+camera.framerate = 60
+camera.hflip = True
+camera.vflip = True
+rawCapture = PiRGBArray(camera, size = (160, 120))
 
 # Function called each magnet interuption that
 # calculates time between two magnet interuptions
