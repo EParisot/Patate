@@ -51,6 +51,7 @@ MOT1v.start(0)
 MOT2v.start(0)
 speed1 = 25
 speed2 = 25
+last = -1
 
 try:
 ### Capture frames examples
@@ -60,6 +61,8 @@ try:
     image = np.array([img[50:, :, :]])
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
+    if (last == 0 and preds == 2) or (last == 2 and preds == 0):
+        preds == 3
     if preds == 0:
         GPIO.output(MOT1f, 0)
         GPIO.output(MOT1b, 1)
@@ -81,9 +84,17 @@ try:
         GPIO.output(MOT2b, 1)
         v1 = speed2
         v2 = speed2
+    elif preds == 3:
+        GPIO.output(MOT1f, 0)
+        GPIO.output(MOT1b, 1)
+        GPIO.output(MOT2f, 0)
+        GPIO.output(MOT2b, 1)
+        v1 = speed2
+        v2 = speed2
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
-    print("L = " + str(v1) + " - R = " + str(v2))
+    print(str(preds))
+    last = preds
 ##  # Clear the stream
     image = np.delete(image, 0)
     rawCapture.truncate(0)
