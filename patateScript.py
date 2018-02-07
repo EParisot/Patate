@@ -51,9 +51,10 @@ GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
 # Init speeds and memory
-speed1 = 25
+speed1 = 15
 speed2 = 25
 last = 1
+preds_a = [1]
 
 try:
 ##  # Capture frames
@@ -65,8 +66,9 @@ try:
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
 ##  # Filter
-    if (last == 0 and preds == 2) or (last == 2 and preds == 0):
-        preds == 3
+    print(str(last))
+    if (last - preds)*(last - preds) == 4:
+        preds = 3
 ##  # Action
     if preds == 0:
         GPIO.output(MOT1f, 0)
@@ -83,9 +85,9 @@ try:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 0:
-          speed1 = 40
+          speed1 = 2*speed1
         else:
-          speed1 = 25
+          speed1 = 15
         v1 = speed1
         v2 = speed1
     elif preds == 2:
@@ -104,7 +106,7 @@ try:
         v2 = speed2
     MOT1v.ChangeDutyCycle(v1)
     MOT2v.ChangeDutyCycle(v2)
-    print(str(preds))
+    print(str(preds) + str(preds_a))
 ##  # Set memory
     last = preds
 ##  # Clear the stream
