@@ -8,7 +8,8 @@ import numpy as np
 
 # Load Model:
 model = load_model('model-1x3.h5')
-print("Model Loaded")
+model_a = load_model('model-anticipation.h5')
+print("Models Loaded")
 
 #init GPIO with BCM numberings
 GPIO.setmode(GPIO.BCM)
@@ -79,6 +80,12 @@ try:
         GPIO.output(MOT1b, 0)
         GPIO.output(MOT2f, 1)
         GPIO.output(MOT2b, 0)
+        image_a = np.array([img[40:58, :, :]])
+        preds_a = np.argmax(model_a.predict(image_a), axis=1)
+        if preds_a == 0:
+          speed1 = 40
+        else:
+          speed1 = 25
         v1 = speed1
         v2 = speed1
     elif preds == 2:
