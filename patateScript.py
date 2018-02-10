@@ -51,8 +51,8 @@ GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
 # Init speeds and memory
-speed1 = 15
-speed2 = 25
+speed1 = 30
+speed2 = 30
 last = 1
 preds_a = [1]
 
