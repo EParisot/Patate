@@ -85,7 +85,7 @@ try:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 0:
-          speed1 = 2*speed1
+          speed1 = 30
         else:
           speed1 = 15
         v1 = speed1
