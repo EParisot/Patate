@@ -7,8 +7,8 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-race.h5')
-#model_a = load_model('model-anticipation.h5')
+model = load_model('model-1x3.h5')
+model_a = load_model('model-anticipation.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
@@ -51,8 +51,8 @@ GPIO.output(MOT2f, 1)
 MOT1v.start(0)
 MOT2v.start(0)
 # Init speeds and memory
-speed1 = 30
-speed2 = 30
+speed1 = 15
+speed2 = 25
 last = 1
 preds_a = [1]
 
@@ -82,12 +82,12 @@ try:
         GPIO.output(MOT1b, 0)
         GPIO.output(MOT2f, 1)
         GPIO.output(MOT2b, 0)
-        #image_a = np.array([img[40:58, :, :]])
-        #preds_a = np.argmax(model_a.predict(image_a), axis=1)
-        #if preds_a == 0:
-          #speed1 = 30
-        #else:
-          #speed1 = 15
+        image_a = np.array([img[40:58, :, :]])
+        preds_a = np.argmax(model_a.predict(image_a), axis=1)
+        if preds_a == 0:
+          speed1 = 30
+        else:
+          speed1 = 15
         v1 = speed1
         v2 = speed1
     elif preds == 2:
@@ -98,10 +98,10 @@ try:
         v1 = speed2
         v2 = speed2
     elif preds == 3:
-        GPIO.output(MOT1f, 0)
-        GPIO.output(MOT1b, 1)
-        GPIO.output(MOT2f, 0)
-        GPIO.output(MOT2b, 1)
+        GPIO.output(MOT1f, 1)
+        GPIO.output(MOT1b, 0)
+        GPIO.output(MOT2f, 1)
+        GPIO.output(MOT2b, 0)
         v1 = speed2
         v2 = speed2
     MOT1v.ChangeDutyCycle(v1)
