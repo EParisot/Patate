@@ -11,4 +11,4 @@ The CNN have been trained with pictures we took from a free wheels replica we pu
 After training, the CNN hits at 89% accuracy on our validation tests and is able to ride severals laps.
 
 UPDATE : Patate42 won the first french edition of IronCar race !!!
-We had to do a new dataset from scratch an modify the code a bit but it's still the same principle !
+We had to do a new dataset from scratch and modify the code a bit but it's still the same principle !
