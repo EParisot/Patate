@@ -61,7 +61,7 @@ try:
   for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # Grab Numpy Array
     img = frame.array
-    image = np.array([img[50:, :, :]])
+    image = np.array([img[50:, :, :]]/255)
 ##  # Model prediction
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
