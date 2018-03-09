@@ -18,8 +18,8 @@ GPIO.setup(23, GPIO.OUT)
 GPIO.setup(18, GPIO.OUT)
 
 #set controls
-POW = GPIO.PWM(23, 50)
-DIR = GPIO.PWM(18, 50)
+POW = GPIO.PWM(18, 50)
+DIR = GPIO.PWM(23, 50)
 
 
 # Video settings
@@ -94,7 +94,7 @@ except KeyboardInterrupt:
   pass
 
 # Stop the machine and release GPIO Pins
-MOT1v.stop(0)
-MOT2v.stop(0)
+POW.stop(0)
+DIR.stop(0)
 print("Stop")
 GPIO.cleanup()
