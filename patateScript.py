@@ -21,7 +21,6 @@ GPIO.setup(18, GPIO.OUT)
 POW = GPIO.PWM(18, 50)
 DIR = GPIO.PWM(23, 50)
 
-
 # Video settings
 camera = PiCamera()
 camera.resolution = (160, 128)
@@ -83,7 +82,7 @@ try:
     elif preds == 3:
         speed = 5
         direction = 7
-    POW.ChangeDutyCycle(tg + speed)
+    POW.ChangeDutyCycle(tg - speed)
     DIR.ChangeDutyCycle(direction)
     print(str(preds))
 ##  # Set memory
