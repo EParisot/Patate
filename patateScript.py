@@ -18,7 +18,7 @@ GPIO.setup(23, GPIO.OUT)
 GPIO.setup(18, GPIO.OUT)
 
 #set controls
-POW = GPIO.PWM(18, 50)
+POW = GPIO.PWM(18, 1000)
 DIR = GPIO.PWM(23, 50)
 
 # Video settings
