@@ -45,8 +45,9 @@ speed = 0
 direction = 7
 
 # Init engines
-POW.start(tg)
-DIR.start(direction)
+POW.start(0)
+DIR.start(0)
+DIR.ChangeDutyCycle(tg)
 
 last = 1
 preds_a = [1]
