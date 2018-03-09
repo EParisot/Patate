@@ -67,7 +67,7 @@ try:
 ##  # Action
     if preds == 0:
         speed = 5
-        direction = 0
+        direction = 4
     elif preds == 1:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
@@ -78,13 +78,13 @@ try:
         direction = 7
     elif preds == 2:
         speed = 5
-        direction = 14
+        direction = 10
     elif preds == 3:
         speed = 5
         direction = 7
     POW.ChangeDutyCycle(tg + speed)
     DIR.ChangeDutyCycle(direction)
-    print(str(preds) + str(preds_a))
+    print(str(preds))
 ##  # Set memory
     last = preds
 ##  # Clear the stream
@@ -95,6 +95,6 @@ except KeyboardInterrupt:
 
 # Stop the machine and release GPIO Pins
 POW.stop(0)
-DIR.stop(0)
+DIR.stop(7)
 print("Stop")
 GPIO.cleanup()
