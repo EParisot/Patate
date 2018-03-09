@@ -63,24 +63,24 @@ try:
 ##  # Filter
     print(str(last))
     if (last - preds)*(last - preds) == 4:
-        preds = 7
+        preds = 3
 ##  # Action
     if preds == 0:
-        speed = 7
+        speed = 6
         direction = 4
     elif preds == 1:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 0:
-          speed = 7
+          speed = 6
         else:
-          speed = 7
+          speed = 6
         direction = 7
     elif preds == 2:
-        speed = 7
+        speed = 6
         direction = 10
     elif preds == 3:
-        speed = 7
+        speed = 6
         direction = 7
     POW.ChangeDutyCycle(tg - speed)
     DIR.ChangeDutyCycle(direction)
