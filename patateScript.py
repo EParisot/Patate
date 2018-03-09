@@ -39,7 +39,7 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-tg = 7
+tg = 2
 direction = 7
 
 # Init engines
