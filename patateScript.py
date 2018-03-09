@@ -82,7 +82,7 @@ try:
     elif preds == 3:
         speed = 3
         direction = 7
-    POW.ChangeDutyCycle(tg - speed)
+    POW.ChangeDutyCycle(tg + speed)
     DIR.ChangeDutyCycle(direction)
     print(str(preds))
 ##  # Set memory
