@@ -47,7 +47,7 @@ direction = 7
 # Init engines
 POW.start(0)
 DIR.start(0)
-DIR.ChangeDutyCycle(tg)
+POW.ChangeDutyCycle(tg)
 
 last = 1
 preds_a = [1]
