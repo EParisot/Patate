@@ -65,23 +65,23 @@ try:
         preds = 3
 ##  # Action
     if preds == 0:
-        speed = 2
+        speed = 8
         direction = 4
     elif preds == 1:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 0:
-          speed = 2
+          speed = 8
         else:
-          speed = 2
+          speed = 8
         direction = 7
     elif preds == 2:
-        speed = 2
+        speed = 8
         direction = 10
     elif preds == 3:
-        speed = 2
+        speed = 8
         direction = 7
-    POW.ChangeDutyCycle(tg + speed)
+    POW.ChangeDutyCycle(tg - speed)
     DIR.ChangeDutyCycle(direction)
     print(str(preds))
 ##  # Set memory
