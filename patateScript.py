@@ -18,7 +18,7 @@ GPIO.setup(23, GPIO.OUT)
 GPIO.setup(18, GPIO.OUT)
 
 #set controls
-POW = GPIO.PWM(18, 1000)
+POW = GPIO.PWM(18, 50)
 DIR = GPIO.PWM(23, 50)
 
 # Video settings
@@ -39,7 +39,7 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-tg = 2
+tg = 10
 direction = 7
 
 # Init engines
