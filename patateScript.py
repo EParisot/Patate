@@ -55,7 +55,7 @@ try:
   for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # Grab Numpy Array
     img = frame.array
-    image = np.array([img[50:, :, :]])
+    image = np.array([img[50:, :, :]/255])
 ##  # Model prediction
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
@@ -68,7 +68,7 @@ try:
         speed = 7.5
         direction = 4
     elif preds == 1:
-        image_a = np.array([img[40:58, :, :]])
+        image_a = np.array([img[40:58, :, :]/255])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 0:
           speed = 7.5
