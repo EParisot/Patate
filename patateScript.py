@@ -7,8 +7,8 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-tg-1.h5')
-model_a = load_model('model-tg-1-anticipation.h5')
+model = load_model('model-1x3.h5')
+model_a = load_model('model-anticipation.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
@@ -39,7 +39,7 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-speed = 6.75
+speed = 6.7
 direction = 7
 
 # Init engines
@@ -55,7 +55,7 @@ try:
   for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # Grab Numpy Array
     img = frame.array
-    image = np.array([img[50:, :, :]/255])
+    image = np.array([img[50:, :, :]])
 ##  # Model prediction
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
@@ -65,21 +65,21 @@ try:
         preds = 3
 ##  # Action
     if preds == 0:
-        speed = 6.75
+        speed = 6.7
         direction = 4
     elif preds == 1:
-        image_a = np.array([img[40:58, :, :]/255])
+        image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 0:
-          speed = 6.7
+          speed = 6.65
         else:
-          speed = 6.75
+            speed = 6.7
         direction = 7
     elif preds == 2:
-        speed = 6.75
+        speed = 6.7
         direction = 10
     elif preds == 3:
-        speed = 6.75
+        speed = 6.7
         direction = 7
     POW.ChangeDutyCycle(speed)
     DIR.ChangeDutyCycle(direction)
