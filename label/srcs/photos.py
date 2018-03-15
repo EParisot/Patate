@@ -52,8 +52,8 @@ class Photos(object):
                 print(c.RED + 'DELETE -> ' + c.EOC + self.photos[i])
                 os.rename(self.photos_dir + self.photos[i], self.trash_dir + self.photos[i])
             if self.photos_inf[i]['label'] != '':
-                print(c.GREEN + 'LABEL -> ' + c.EOC + self.photos_inf[i]['label'] + '_' + self.photos[i])
-                os.rename(self.photos_dir + self.photos[i], self.lab_photos_dir + self.photos_inf[i]['label'] + '_' + self.photos[i])
+                print(c.GREEN + 'LABEL -> ' + c.EOC + self.photos_inf[i]['label'] + self.photos[i])
+                os.rename(self.photos_dir + self.photos[i], self.lab_photos_dir + self.photos_inf[i]['label'] + self.photos[i])
         self.load()
 
     def quit_win(self, event):
