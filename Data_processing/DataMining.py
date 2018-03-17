@@ -51,7 +51,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         rawCapture.truncate(0)
         break
     elif key == ord("p"):
-        picname = "/home/pi/Documents/Patate/Pics/d6/_" + str(time.time()) + ".jpg"
+        picname = "/home/pi/Documents/Patate/Pics/raceday2/" + str(time.time()) + ".jpg"
         # take a pic
         cv2.imwrite(picname, image)
         print("snap : " + picname)
