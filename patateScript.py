@@ -8,7 +8,7 @@ import numpy as np
 
 # Load Model:
 model = load_model('model-1x3.h5')
-model_a = load_model('model-anticipation.h5')
+#model_a = load_model('model-anticipation.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
@@ -68,12 +68,12 @@ try:
         speed = 6.7
         direction = 4
     elif preds == 1:
-        image_a = np.array([img[40:58, :, :]])
-        preds_a = np.argmax(model_a.predict(image_a), axis=1)
-        if preds_a == 0:
-          speed = 6.65
-        else:
-            speed = 6.7
+        #image_a = np.array([img[40:58, :, :]])
+        #preds_a = np.argmax(model_a.predict(image_a), axis=1)
+        #if preds_a == 0:
+          #speed = 6.65
+        #else:
+        speed = 6.7
         direction = 7
     elif preds == 2:
         speed = 6.7
