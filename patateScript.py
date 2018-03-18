@@ -7,7 +7,7 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-1x3.h5')
+model = load_model('model-BigDataset.h5')
 #model_a = load_model('model-anticipation.h5')
 print("Models Loaded")
 
@@ -55,7 +55,7 @@ try:
   for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 ##  # Grab Numpy Array
     img = frame.array
-    image = np.array([img[50:, :, :]])
+    image = np.array([img[40:, :, :]])
 ##  # Model prediction
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
