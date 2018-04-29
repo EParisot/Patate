@@ -71,7 +71,7 @@ try:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 1:
-          #speed = 6.65
+          speed = 6.65
         else:
         speed = 6.7
         direction = 7
