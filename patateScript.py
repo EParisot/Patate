@@ -73,8 +73,8 @@ try:
         if preds_a == 1:
           speed = 6.65
         else:
-        speed = 6.7
-        direction = 7
+            speed = 6.7
+            direction = 7
     elif preds == 2:
         speed = 6.7
         direction = 10
