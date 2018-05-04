@@ -7,8 +7,8 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-BigDataset_original.h5')
-model_a = load_model('model-BigDataset-anticipation.h5')
+model = load_model('model-BigDataset_Race.h5')
+model_a = load_model('model-BigDataset-anticipation_Race.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
@@ -39,8 +39,8 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-SPEED_NORMAL = 6.75 # 6.7
-SPEED_FAST = 6.7   # 6.65
+SPEED_NORMAL = 6.8 # 6.7
+SPEED_FAST = 6.75   # 6.65
 speed = SPEED_NORMAL
 direction = 7
 
