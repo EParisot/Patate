@@ -7,7 +7,7 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-BigDataset.h5')
+model = load_model('model-BigDataset_original.h5')
 model_a = load_model('model-BigDataset-anticipation.h5')
 print("Models Loaded")
 
@@ -39,7 +39,9 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-speed = 6.7
+SPEED_NORMAL = 6.75 # 6.7
+SPEED_FAST = 6.7   # 6.65
+speed = SPEED_NORMAL
 direction = 7
 
 # Init engines
@@ -53,6 +55,7 @@ preds_a = [1]
 try:
 ##  # Capture frames
   for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+   # print('speed: ' + str(speed)) ################################################
 ##  # Grab Numpy Array
     img = frame.array
     image = np.array([img[40:, :, :]])
@@ -60,30 +63,30 @@ try:
     preds = model.predict(image)
     preds = np.argmax(preds, axis=1)
 ##  # Filter
-    print(str(last))
+    #print(str(last))
     if (last - preds)*(last - preds) == 4:
         preds = 3
 ##  # Action
     if preds == 0:
-        speed = 6.7
+        speed = SPEED_NORMAL
         direction = 4
     elif preds == 1:
         image_a = np.array([img[40:58, :, :]])
         preds_a = np.argmax(model_a.predict(image_a), axis=1)
         if preds_a == 1:
-          speed = 6.65
+          speed = SPEED_FAST
         else:
-        speed = 6.7
+          speed = SPEED_NORMAL
         direction = 7
     elif preds == 2:
-        speed = 6.7
+        speed = SPEED_NORMAL
         direction = 10
     elif preds == 3:
-        speed = 6.7
+        speed = SPEED_NORMAL
         direction = 7
     POW.ChangeDutyCycle(speed)
     DIR.ChangeDutyCycle(direction)
-    print(str(preds))
+    #print(str(preds))
 ##  # Set memory
     last = preds
 ##  # Clear the stream
