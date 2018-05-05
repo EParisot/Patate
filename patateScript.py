@@ -39,8 +39,8 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-SPEED_NORMAL = 6.75 # 6.7
-SPEED_FAST = 6.7   # 6.65
+SPEED_NORMAL = 6.8 # 6.7
+SPEED_FAST = 6.75   # 6.65
 speed = SPEED_NORMAL
 direction = 7
 
