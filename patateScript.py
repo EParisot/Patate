@@ -7,8 +7,8 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-BigDataset_original.h5')
-model_a = load_model('model-BigDataset-anticipation.h5')
+model = load_model('model-BigDataset_Race.h5')
+model_a = load_model('model-BigDataset-anticipation_Race.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
