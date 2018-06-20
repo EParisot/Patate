@@ -5,12 +5,11 @@ from picamera.array import PiRGBArray
 from keras.models import load_model
 import numpy as np
 import keras.backend as K
+import h5py
 #####################################
-K.clear_session()
-
 
 # Load Model:
-model = load_model('model-MHRace.h5')
+model = load_model('model-MHRaceRich.h5')
 #model_a = load_model('model-BigDataset-anticipation_Race.h5')
 print("Models Loaded")
 
@@ -53,7 +52,7 @@ DIR.start(0)
 POW.ChangeDutyCycle(speed)
 
 last = 1
-preds_a = [1]
+#preds_a = [1]
 
 try:
 ##  # Capture frames
@@ -61,7 +60,7 @@ try:
    # print('speed: ' + str(speed)) ################################################
 ##  # Grab Numpy Array
     img = frame.array
-    image = np.array([img[:, :, :]])
+    image = np.array([img[40:, :, :]])
 ##  # Model prediction
     preds_dir, preds_speed = model.predict(image)
     preds_dir = np.argmax(preds_dir, axis=1)
