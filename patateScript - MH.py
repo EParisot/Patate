@@ -4,7 +4,10 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 from keras.models import load_model
 import numpy as np
+import keras.backend as K
 #####################################
+K.clear_session()
+
 
 # Load Model:
 model = load_model('model-MHRace.h5')
