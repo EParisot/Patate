@@ -10,6 +10,8 @@ import h5py
 
 # Load Model:
 model = load_model('model-MHRaceRich.h5')
+#model = load_model('model-MHRace.h5')
+#model_a = load_model('model-BigDataset-anticipation_Race.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
@@ -75,8 +77,8 @@ try:
         direction = 7
     elif preds_dir == 2:
         direction = 10
-    elif preds_dir == 3:
-        direction = 7
+    #elif preds_dir == 3:
+    #    direction = 7
     if preds_speed == 0:
       speed = SPEED_NORMAL
     else:
