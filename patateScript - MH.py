@@ -10,7 +10,6 @@ import h5py
 
 # Load Model:
 model = load_model('model-MHRaceRich.h5')
-#model_a = load_model('model-BigDataset-anticipation_Race.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
