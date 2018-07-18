@@ -1,6 +1,8 @@
 # Patate
 An autonomous RC car to compete the IronCar Challenge...
 
+![](IMG_20180210_150832.jpg)
+
 At the beginning, the project was an RC car, recycled into, an... RC car, with more power, a camera, speech with Google Assistant, music player, Wifi extender...
 https://github.com/Klhnikov/PiRobot
 
