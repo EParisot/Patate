@@ -14,3 +14,5 @@ After training, the CNN hits at 89% accuracy on our validation tests and is able
 
 UPDATE : Patate42 won the first french edition of IronCar race !!!
 We had to do a new dataset from scratch and modify the code a bit but it's still the same principle !
+
+Datasets Location : https://github.com/EParisot/Patate_data
