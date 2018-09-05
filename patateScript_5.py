@@ -14,6 +14,8 @@ if len(sys.argv) > 1:
   elif len(sys.argv) == 3:
     model = load_model(sys.argv[1])
     model_a = load_model(sys.argv[2])
+  else:
+    print("usage: python patateScript_5.py [path to model.h5]")
     
 print("Models Loaded")
 
@@ -45,10 +47,17 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-SPEED_NORMAL = 6.8 # 6.7
-SPEED_FAST = 6.6   # 6.65
+SPEED_NORMAL = 6.8 # 6.8
+SPEED_FAST = 6.65   # 6.65
+
+DIR_L_M = 5
+DIR_L = 6.5
+DIR_C = 7
+DIR_R = 7.5
+DIR_R_M = 9
+
 speed = SPEED_NORMAL
-direction = 7
+direction = DIR_C
 
 # Init engines
 POW.start(0)
@@ -71,15 +80,15 @@ try:
           preds = np.argmax(preds, axis=1)
       ##  # Action
           if preds == 0:
-              direction = 4
+              direction = DIR_L_M
           elif preds == 1:
-              direction = 5.5
+              direction = DIR_L
           elif preds == 2:
-              direction = 7
+              direction = DIR_C
           elif preds == 3:
-              direction = 8.5
+              direction = DIR_R
           elif preds == 4:
-              direction = 10
+              direction = DIR_R_M
           DIR.ChangeDutyCycle(direction)
       ##  # Clear the stream
           image = np.delete(image, 0)
@@ -96,10 +105,10 @@ try:
       ##  # Action
           if preds == 0:
               speed = SPEED_NORMAL
-              direction = 4
+              direction = DIR_L_M
           elif preds == 1:
               speed = SPEED_NORMAL
-              direction = 5.5
+              direction = DIR_L
           elif preds == 2:
               image_a = np.array([img[40:58, :, :]])
               preds_a = np.argmax(model_a.predict(image_a), axis=1)
@@ -107,13 +116,13 @@ try:
                   speed = SPEED_FAST
               else:
                   speed = SPEED_NORMAL
-              direction = 7
+              direction = DIR_C
           elif preds == 3:
               speed = SPEED_NORMAL
-              direction = 8.5
+              direction = DIR_R
           elif preds == 4:
               speed = SPEED_NORMAL
-              direction = 10
+              direction = DIR_R_M
           POW.ChangeDutyCycle(speed)
           DIR.ChangeDutyCycle(direction)
       ##  # Clear the stream
@@ -124,6 +133,6 @@ except KeyboardInterrupt:
 
 # Stop the machine and release GPIO Pins
 POW.stop(0)
-DIR.stop(7)
+DIR.stop(DIR_C)
 print("Stop")
 GPIO.cleanup()
