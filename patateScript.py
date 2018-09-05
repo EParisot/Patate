@@ -7,8 +7,8 @@ import numpy as np
 #####################################
 
 # Load Model:
-model = load_model('model-BigDataset_Race.h5')
-model_a = load_model('model-BigDataset-anticipation_Race.h5')
+model = load_model('model-AugmentedDataset.h5')
+model_a = load_model('model-BigDataset-anticipation.h5')
 print("Models Loaded")
 
 #init GPIO with BCM numberings
@@ -49,7 +49,7 @@ POW.start(0)
 DIR.start(0)
 POW.ChangeDutyCycle(speed)
 
-last = 1
+#last = 1
 preds_a = [1]
 
 try:
@@ -64,8 +64,8 @@ try:
     preds = np.argmax(preds, axis=1)
 ##  # Filter
     #print(str(last))
-    if (last - preds)*(last - preds) == 4:
-        preds = 3
+    #if (last - preds)*(last - preds) == 4:
+    #    preds = 3
 ##  # Action
     if preds == 0:
         speed = SPEED_NORMAL
@@ -81,14 +81,14 @@ try:
     elif preds == 2:
         speed = SPEED_NORMAL
         direction = 10
-    elif preds == 3:
-        speed = SPEED_NORMAL
-        direction = 7
+    #elif preds == 3:
+    #    speed = SPEED_NORMAL
+    #    direction = 7
     POW.ChangeDutyCycle(speed)
     DIR.ChangeDutyCycle(direction)
     #print(str(preds))
 ##  # Set memory
-    last = preds
+    #last = preds
 ##  # Clear the stream
     image = np.delete(image, 0)
     rawCapture.truncate(0)

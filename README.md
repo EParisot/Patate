@@ -1,6 +1,8 @@
 # Patate
 An autonomous RC car to compete the IronCar Challenge...
 
+![](IMG_20180210_150832.jpg)
+
 At the beginning, the project was an RC car, recycled into, an... RC car, with more power, a camera, speech with Google Assistant, music player, Wifi extender...
 https://github.com/Klhnikov/PiRobot
 
@@ -12,3 +14,5 @@ After training, the CNN hits at 89% accuracy on our validation tests and is able
 
 UPDATE : Patate42 won the first french edition of IronCar race !!!
 We had to do a new dataset from scratch and modify the code a bit but it's still the same principle !
+
+Datasets Location : https://github.com/EParisot/Patate_data
