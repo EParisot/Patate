@@ -10,7 +10,7 @@ import h5py
 
 # Load Model:
 model = load_model('model-MHRaceRich.h5')
-#model = load_model('model-MHRace.h5')
+#model = load_model('model-MHRace_2.h5')
 #model_a = load_model('model-BigDataset-anticipation_Race.h5')
 print("Models Loaded")
 
@@ -42,7 +42,7 @@ except KeyboardInterrupt:
 
 
 # Init speeds and memory
-SPEED_NORMAL = 6.8 # 6.7
+SPEED_NORMAL = 6.76 # 6.8
 SPEED_FAST = 6.6   # 6.65
 speed = SPEED_NORMAL
 direction = 7
