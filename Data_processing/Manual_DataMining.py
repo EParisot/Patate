@@ -1,4 +1,3 @@
-import RPi.GPIO as GPIO
 import time
 from picamera import PiCamera
 from picamera.array import PiRGBArray
@@ -34,6 +33,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # Clean image before the next comes
     rawCapture.truncate(0)
 
-# Clean GPIO Pins
-GPIO.cleanup()
 
