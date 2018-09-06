@@ -9,16 +9,21 @@ from time import sleep
 
 # Load Model(s):
 if len(sys.argv) > 1:
-  if sys.argv[1] == "--d":
-    model = load_model(sys.argv[2])
-  elif sys.argv[1] == "--sd":
-    model = load_model(sys.argv[2])
-    model_a = load_model(sys.argv[3])
-  elif sys.argv[1] == "--m":
-    model = load_model(sys.argv[2])
-  else:
-    print("usage: python patateScript.py [opt] [path(s) to model.h5]\n \
-          opt: --d : direction only \n\
+    if sys.argv[1] == "--d":
+        model = load_model(sys.argv[2])
+    elif sys.argv[1] == "--sd":
+        model = load_model(sys.argv[2])
+        model_a = load_model(sys.argv[3])
+    elif sys.argv[1] == "--m":
+        model = load_model(sys.argv[2])
+    else:
+        print("usage: python patateScript.py [type] [path(s) to model.h5]\n \
+          type: --d : direction only \n\
+            \t --sd : speed + direction\n\
+            \t --m : multitask\n")
+else:
+    print("usage: python patateScript.py [type] [path(s) to model.h5]\n \
+          type: --d : direction only \n\
             \t --sd : speed + direction\n\
             \t --m : multitask\n")
     
@@ -33,13 +38,12 @@ camera.vflip = True
 rawCapture = PiRGBArray(camera, size=(160, 128))
 
 # Starting loop
-print("Ready ! (press Ctrl+C to start/stop)...")
+print("Ready ! press CTRL+C to START/STOP :")
 try:
   while True:
     pass
 except KeyboardInterrupt:
   pass
-
 
 # Init speeds
 SPEED_NORMAL = 320#6.8 # 6.8
@@ -58,18 +62,21 @@ direction = DIR_C
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
+# Set crop value
+crop = 40
 
-preds_a = [1]
-
+# Handle START/STOP event
 try:
-##  # Capture frames
-  
+
+    ## # Simple Direction model
     if sys.argv[1] == "--d":
+        print("Go ! (dir)")
         pwm.set_pwm(1, 0, SPEED_NORMAL)
+        ##  # Capture frames
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img[40:, :, :]])
+            image = np.array([img[crop:, :, :]])
             ##  # Model prediction
             preds = model.predict(image)
             preds = np.argmax(preds, axis=1)
@@ -84,18 +91,20 @@ try:
                 direction = DIR_R
             elif preds == 4:
                 direction = DIR_R_M
-                
+            ##  # Apply values to engine 
             pwm.set_pwm(0, 0, direction)
-
             ##  # Clear the stream
             image = np.delete(image, 0)
             rawCapture.truncate(0)
-
+            
+    ## # Speed + Direction models
     elif sys.argv[1] == "--sd":
+        print("Go ! (speed + dir)")
+        ##  # Capture frames
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img[40:, :, :]])
+            image = np.array([img[crop:, :, :]])
             ##  # Model prediction
             preds = model.predict(image)
             preds = np.argmax(preds, axis=1)
@@ -120,17 +129,54 @@ try:
             elif preds == 4:
                 speed = SPEED_NORMAL
                 direction = DIR_R_M
-                
+            ##  # Apply values to engines 
             pwm.set_pwm(0, 0, direction)
             pwm.set_pwm(1, 0, speed)
-            
             ##  # Clear the stream
             image = np.delete(image, 0)
             rawCapture.truncate(0)
+
+    ## # Multitask model
+    elif sys.argv[1] == "--m":
+        print("Go ! (multi)")
+        ##  # Capture frames
+        for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+            ##  # Grab Numpy Array
+            img = frame.array
+            image = np.array([img[crop:, :, :]])
+            ##  # Model prediction
+            preds = model.predict(image)
+            preds = [np.argmax(pred, axis=1) for pred in preds]
+            ##  # Action
+            if preds[1] == 0:
+                speed = SPEED_NORMAL
+                direction = DIR_L_M
+            elif preds[1] == 1:
+                speed = SPEED_NORMAL
+                direction = DIR_L
+            elif preds[1] == 2:
+                if preds[0] == 1:
+                    speed = SPEED_FAST
+                else:
+                    speed = SPEED_NORMAL
+                direction = DIR_C
+            elif preds[1] == 3:
+                speed = SPEED_NORMAL
+                direction = DIR_R
+            elif preds[1] == 4:
+                speed = SPEED_NORMAL
+                direction = DIR_R_M
+            ##  # Apply values to engines   
+            pwm.set_pwm(0, 0, direction)
+            pwm.set_pwm(1, 0, speed)
+            ##  # Clear the stream
+            image = np.delete(image, 0)
+            rawCapture.truncate(0)
+            
 except KeyboardInterrupt:
     pass
 
-# Stop the machine and release GPIO Pins
+# Stop the machine
 pwm.set_pwm(0, 0, 0)
 pwm.set_pwm(1, 0, 0)
 print("Stop")
