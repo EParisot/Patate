@@ -10,12 +10,12 @@ from time import sleep
 # Load Model(s):
 if len(sys.argv) > 1:
   if sys.argv[1] == "--d":
-    model = load_model(sys.argv[1])
+    model = load_model(sys.argv[2])
   elif sys.argv[1] == "--sd":
-    model = load_model(sys.argv[1])
-    model_a = load_model(sys.argv[2])
+    model = load_model(sys.argv[2])
+    model_a = load_model(sys.argv[3])
   elif sys.argv[1] == "--m":
-    model = load_model(sys.argv[1])
+    model = load_model(sys.argv[2])
   else:
     print("usage: python patateScript.py [opt] [path(s) to model.h5]\n \
           opt: --d : direction only \n\
@@ -64,7 +64,7 @@ preds_a = [1]
 try:
 ##  # Capture frames
   
-    if len(sys.argv) == 2:
+    if sys.argv[1] == "--d":
         pwm.set_pwm(1, 0, SPEED_NORMAL)
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
@@ -91,7 +91,7 @@ try:
             image = np.delete(image, 0)
             rawCapture.truncate(0)
 
-    elif len(sys.argv) == 3:
+    elif sys.argv[1] == "--sd":
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
