@@ -4,7 +4,9 @@ except:
     print("run 'workon cv' before you start the script")
     exit(0)
 
-import RPi.GPIO as GPIO
+# Import the PCA9685 module.
+import Adafruit_PCA9685
+
 import time
 from picamera import PiCamera
 from picamera.array import PiRGBArray
@@ -14,14 +16,14 @@ import threading
 
 #############################################
 
-SPEED_NORMAL = 6.8 # 6.8
-SPEED_FAST = 6.65   # 6.65
+SPEED_NORMAL = 320#6.8 # 6.8
+SPEED_FAST = 315#6.65   # 6.65
 
-DIR_L_M = 5
-DIR_L = 6.5
-DIR_C = 7
-DIR_R = 7.5
-DIR_R_M = 9
+DIR_L_M = 245
+DIR_L = 307
+DIR_C = 328
+DIR_R = 348
+DIR_R_M = 409
 
 class Controler(object):
     def __init__(self):
@@ -33,14 +35,9 @@ class Controler(object):
 
         self.label = [-1, 2]
 
-        #init GPIO with BCM numberings
-        GPIO.setmode(GPIO.BCM)
-        #init every used pins
-        GPIO.setup(23, GPIO.OUT)
-        GPIO.setup(18, GPIO.OUT)
         #set controls
-        self.POW = GPIO.PWM(18, 50)
-        self.DIR = GPIO.PWM(23, 50)
+        self.pwm = Adafruit_PCA9685.PCA9685()
+        self.pwm.set_pwm_freq(50)
 
         # Init speed
         self.speed = SPEED_NORMAL
@@ -55,9 +52,6 @@ class Controler(object):
         self.camera.vflip = True
         self.rawCapture = PiRGBArray(self.camera, size = (160, 120))
         time.sleep(0.5)
-        
-        self.POW.start(0)
-        self.DIR.start(0)
         
         self.key = -1
 
@@ -83,8 +77,10 @@ class Controler(object):
             self.key = cv2.waitKey(1) & 0xFF
             if self.key != 255:
                 if self.key == ord('a'):
-                    self.POW.stop()
-                    self.DIR.stop()
+                    #self.POW.stop()
+                    #self.DIR.stop()
+                    self.pwm.set_pwm(0, 0, 0)
+                    self.pwm.set_pwm(1, 0, 0)
                     print("Stop")
                     return
                 self.controls()
@@ -137,8 +133,8 @@ class Controler(object):
         elif self.label[1] == 4:
             self.direction = DIR_R_M
                         
-        self.POW.ChangeDutyCycle(self.speed)
-        self.DIR.ChangeDutyCycle(self.direction)
+        self.pwm.set_pwm(0, 0, self.direction)
+        self.pwm.set_pwm(1, 0, self.speed)
 
 if __name__ == "__main__":
     print("Press Ctrl+C to start/stop...")
@@ -150,7 +146,7 @@ if __name__ == "__main__":
     controler = Controler()
     controler.videoLoop()
     
-    GPIO.cleanup()
+    #GPIO.cleanup()
 
 
 
