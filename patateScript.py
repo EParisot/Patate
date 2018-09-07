@@ -172,10 +172,10 @@ try:
             image = np.delete(image, 0)
             rawCapture.truncate(0)
             
-except KeyboardInterrupt:
+except:
+    # Stop the machine
+    pwm.set_pwm(0, 0, 0)
+    pwm.set_pwm(1, 0, 0)
     rawCapture.truncate(0)
 
-# Stop the machine
-pwm.set_pwm(0, 0, 0)
-pwm.set_pwm(1, 0, 0)
 print("Stop")
