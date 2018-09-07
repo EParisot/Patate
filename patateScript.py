@@ -31,11 +31,11 @@ print("Model(s) Loaded")
 
 # Video settings
 camera = PiCamera()
-camera.resolution = (160, 128)
+camera.resolution = (160, 96)
 camera.framerate = 60
-camera.hflip = True
-camera.vflip = True
-rawCapture = PiRGBArray(camera, size=(160, 128))
+#camera.hflip = True
+#camera.vflip = True
+rawCapture = PiRGBArray(camera, size=(160, 96))
 
 # Starting loop
 print("Ready ! press CTRL+C to START/STOP :")
@@ -62,9 +62,6 @@ direction = DIR_C
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
-# Set crop value
-crop = 40
-
 # Handle START/STOP event
 try:
 
@@ -76,7 +73,7 @@ try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img[crop:, :, :]])
+            image = np.array([img])
             ##  # Model prediction
             preds = model.predict(image)
             preds = np.argmax(preds, axis=1)
@@ -104,7 +101,7 @@ try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img[crop:, :, :]])
+            image = np.array([img])
             ##  # Model prediction
             preds = model.predict(image)
             preds = np.argmax(preds, axis=1)
@@ -116,7 +113,7 @@ try:
                 speed = SPEED_NORMAL
                 direction = DIR_L
             elif preds == 2:
-                image_a = np.array([img[40:58, :, :]])
+                image_a = np.array([img])
                 preds_a = np.argmax(model_a.predict(image_a), axis=1)
                 if preds_a == 1:
                     speed = SPEED_FAST
@@ -143,7 +140,7 @@ try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img[crop:, :, :]])
+            image = np.array([img])
             ##  # Model prediction
             preds = model.predict(image)
             preds = [np.argmax(pred, axis=1) for pred in preds]
