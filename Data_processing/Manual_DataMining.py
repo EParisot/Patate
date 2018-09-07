@@ -8,8 +8,8 @@ import cv2
 camera = PiCamera()
 camera.resolution = (192, 96)
 camera.framerate = 60
-camera.hflip = True
-camera.vflip = True
+#camera.hflip = True
+#camera.vflip = True
 rawCapture = PiRGBArray(camera, size = (192, 96))
 
 
