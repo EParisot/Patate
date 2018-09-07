@@ -59,6 +59,7 @@ class Controler(object):
     # Loop over camera frames
     def videoLoop(self):
         start = time.time()
+        i = 0
         for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
             # convert img as Array
             image = frame.array
@@ -66,11 +67,12 @@ class Controler(object):
             picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(time.time()) + ".jpg"
             cv2.imshow("Auto DataSet Mining", image)
             # take a pic
-            if self.label[0] != -1:
+            if self.label[0] != -1 and self.snap == True:
                 if time.time() - start > self.delay:
                     cv2.imwrite(picname, image)
                     start = time.time()
-                    print("snap : " + picname)
+                    print(str(i) + " - snap : " + picname)
+                    i += 1
             # Clean image before the next comes
             self.rawCapture.truncate(0)
             
