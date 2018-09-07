@@ -27,11 +27,12 @@ DIR_R_M = 409
 
 class Controler(object):
     def __init__(self):
-        
+        self.snap = False
         if len(sys.argv) == 2:
             self.delay = float(sys.argv[1])
+            self.snap = True
         else:
-            print("usage : python Auto_datamining.py [delay in sec (float)]")
+            print("No Snaps, specify a delay value (float) to activate")
 
         self.label = [-1, 2]
 
