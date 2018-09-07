@@ -33,11 +33,11 @@ print("Model(s) Loaded")
 
 # Video settings
 camera = PiCamera()
-camera.resolution = (192, 96)
+camera.resolution = (160, 96)
 camera.framerate = 60
 #camera.hflip = True
 #camera.vflip = True
-rawCapture = PiRGBArray(camera, size=(192, 96))
+rawCapture = PiRGBArray(camera, size=(160, 96))
 
 # Starting loop
 print("Ready ! press CTRL+C to START/STOP :")
