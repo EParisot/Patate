@@ -21,11 +21,13 @@ if len(sys.argv) > 1:
           type: --d : direction only \n\
             \t --sd : speed + direction\n\
             \t --m : multitask\n")
+        exit(0)
 else:
     print("usage: python patateScript.py [type] [path(s) to model.h5]\n \
           type: --d : direction only \n\
             \t --sd : speed + direction\n\
             \t --m : multitask\n")
+    exit(0)
     
 print("Model(s) Loaded")
 
@@ -171,7 +173,7 @@ try:
             rawCapture.truncate(0)
             
 except KeyboardInterrupt:
-    pass
+    rawCapture.truncate(0)
 
 # Stop the machine
 pwm.set_pwm(0, 0, 0)
