@@ -129,8 +129,10 @@ if __name__ == "__main__":
       pass
     controler = Controler()
     controler.videoLoop()
+    controler.joy.close()
+    controler.camera.close()
     
-    #GPIO.cleanup()
+    
 
 
 
