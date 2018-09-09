@@ -1,0 +1,6 @@
+Pillow
+tensorflow
+keras==2.1.5
+pandas
+numpy
+h5py
