@@ -62,13 +62,13 @@ class Controler(object):
             # convert img as Array
             image = frame.array
             # append label
-            picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(time.time()) + ".jpg"
             #cv2.imshow("Auto DataSet Mining", image)
             # take a pic
             if self.label[0] != -1 and self.snap == True:
                 if time.time() - start > self.delay:
-                    #cv2.imwrite(picname, image)
                     im = Image.fromarray(image)
+                    t_stamp = time.time()
+                    picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
                     im.save(picname)
                     if self.label[1] != 2 :
                         if self.label[1] == 0:
@@ -79,17 +79,17 @@ class Controler(object):
                             rev_label = 1
                         elif self.label[1] == 4 :
                             rev_label = 0
-                        picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(rev_label) + "_r" + str(time.time()) + ".jpg"
+                        rev_picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(rev_label) + "_r" + str(t_stamp) + ".jpg"
                         im = im.transpose(Image.FLIP_LEFT_RIGHT)
-                        im.save(picname)
+                        im.save(rev_picname)
+                        print(str(i) + " - snap : " + rev_picname)
                         i += 1
-                    start = time.time()
                     print(str(i) + " - snap : " + picname)
                     i += 1
+                    start = time.time()
             # Clean image before the next comes
             self.rawCapture.truncate(0)
             
-            # non blocking 'wait for key'
             if self.joy.A():                   #Test state of the A button (1=pressed, 0=not pressed)
                 self.pwm.set_pwm(0, 0, 0)
                 self.pwm.set_pwm(1, 0, 0)
@@ -101,7 +101,7 @@ class Controler(object):
         
         trigger  = self.joy.rightTrigger() #Right trigger position (values 0 to 1.0)
         if trigger > 0:
-            if trigger < 0.6:
+            if trigger < 0.8:
                 self.label[0] = 0
                 self.speed = SPEED_NORMAL
             else:
@@ -113,14 +113,14 @@ class Controler(object):
             
         cur_x = self.joy.leftX()      #X-axis of the left stick (values -1.0 to 1.0)
         if cur_x < -0.1:
-            if cur_x < -0.6:
+            if cur_x < -0.8:
                 self.label[1] = 0
                 self.direction = DIR_L_M
             else:
                 self.label[1] = 1
                 self.direction = DIR_L
         elif cur_x > 0.1:
-            if cur_x > 0.6:
+            if cur_x > 0.8:
                 self.label[1] = 4
                 self.direction = DIR_R_M
             else:
