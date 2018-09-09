@@ -49,13 +49,13 @@ class Controler(object):
     def videoLoop(self):
         start = time.time()
         i = 0
-        for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
+        for frame in self.camera.capture_continuous(self.rawCapture, format="rgb", use_video_port=True):
             # convert img as Array
             image = frame.array
             # take a pic
             if self.label[0] != -1 and self.snap == True:
                 if time.time() - start > self.delay:
-                    im = Image.fromarray(image)
+                    im = Image.fromarray(image, 'RGB')
                     t_stamp = time.time()
                     picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
                     im.save(picname)
