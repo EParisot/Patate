@@ -14,7 +14,7 @@ import threading
 #############################################
 
 SPEED_NORMAL = 320#6.8 # 6.8
-SPEED_FAST = 315#6.65   # 6.65
+SPEED_FAST = 310#6.65   # 6.65
 
 DIR_L_M = 245
 DIR_L = 307
