@@ -9,18 +9,9 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 from PIL import Image
 import sys
-import threading
 
+from const import *
 #############################################
-
-SPEED_NORMAL = 320#6.8 # 6.8
-SPEED_FAST = 310#6.65   # 6.65
-
-DIR_L_M = 245
-DIR_L = 307
-DIR_C = 328
-DIR_R = 348
-DIR_R_M = 409
 
 class Controler(object):
     def __init__(self):

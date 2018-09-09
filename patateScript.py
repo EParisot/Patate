@@ -5,6 +5,8 @@ from keras.models import load_model
 import numpy as np
 import sys
 from time import sleep
+
+from Data_processing.const import *
 #####################################
 
 # Load Model(s):
@@ -46,16 +48,6 @@ try:
     pass
 except KeyboardInterrupt:
   pass
-
-# Init speeds
-SPEED_NORMAL = 320#6.8 # 6.8
-SPEED_FAST = 315#6.65   # 6.65
-
-DIR_L_M = 245
-DIR_L = 307
-DIR_C = 328
-DIR_R = 348
-DIR_R_M = 409
 
 speed = SPEED_FAST
 direction = DIR_C
