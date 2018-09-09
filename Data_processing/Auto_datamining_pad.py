@@ -52,8 +52,6 @@ class Controler(object):
         for frame in self.camera.capture_continuous(self.rawCapture, format="bgr", use_video_port=True):
             # convert img as Array
             image = frame.array
-            # append label
-            #cv2.imshow("Auto DataSet Mining", image)
             # take a pic
             if self.label[0] != -1 and self.snap == True:
                 if time.time() - start > self.delay:
