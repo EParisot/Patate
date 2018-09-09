@@ -17,4 +17,4 @@ dependencies:
 - scikit-image==0.13.1  
 - pip:
   - tensorflow==1.1.0
-  - keras==2.0.4
+  - keras==2.1.5
