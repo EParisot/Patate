@@ -36,9 +36,7 @@ class Controler(object):
         # Setup Camera
         self.camera = PiCamera()
         self.camera.resolution = (160, 96)
-        self.camera.framerate = 30
-        #self.camera.hflip = True
-        #self.camera.vflip = True
+        self.camera.framerate = 60
         self.rawCapture = PiRGBArray(self.camera, size = (160, 96))
         time.sleep(0.5)
         
@@ -52,8 +50,6 @@ class Controler(object):
         for frame in self.camera.capture_continuous(self.rawCapture, format="rgb", use_video_port=True):
             # convert img as Array
             image = frame.array
-            # append label
-            #cv2.imshow("Auto DataSet Mining", image)
             # take a pic
             if self.label[0] != -1 and self.snap == True:
                 if time.time() - start > self.delay:
@@ -61,20 +57,6 @@ class Controler(object):
                     t_stamp = time.time()
                     picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
                     im.save(picname)
-                    if self.label[1] != 2 :
-                        if self.label[1] == 0:
-                            rev_label = 4
-                        elif self.label[1] == 1 :
-                            rev_label = 3
-                        elif self.label[1] == 3:
-                            rev_label = 1
-                        elif self.label[1] == 4 :
-                            rev_label = 0
-                        rev_picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(rev_label) + "_r" + str(t_stamp) + ".jpg"
-                        im = im.transpose(Image.FLIP_LEFT_RIGHT)
-                        im.save(rev_picname)
-                        print(str(i) + " - snap : " + rev_picname)
-                        i += 1
                     print(str(i) + " - snap : " + picname)
                     i += 1
                     start = time.time()

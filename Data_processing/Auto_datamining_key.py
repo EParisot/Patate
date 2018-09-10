@@ -40,9 +40,7 @@ class Controler(object):
         # Setup Camera
         self.camera = PiCamera()
         self.camera.resolution = (160, 96)
-        self.camera.framerate = 30
-        #self.camera.hflip = True
-        #self.camera.vflip = True
+        self.camera.framerate = 60
         self.rawCapture = PiRGBArray(self.camera, size = (160, 96))
         time.sleep(0.5)
         
@@ -63,19 +61,6 @@ class Controler(object):
                     t_stamp = time.time()
                     picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
                     cv2.imwrite(picname, image)
-                    if self.label[1] != 2:
-                        if self.label[1] == 0:
-                            rev_label = 4
-                        elif self.label[1] == 1 :
-                            rev_label = 3
-                        elif self.label[1] == 3:
-                            rev_label = 1
-                        elif self.label[1] == 4 :
-                            rev_label = 0
-                        rev_picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(rev_label) + "_r" + str(t_stamp) + ".jpg"
-                        cv2.imwrite(rev_picname, cv2.flip( image, 1 ))
-                        print(str(i) + " - snap : " + rev_picname)
-                        i += 1
                     print(str(i) + " - snap : " + picname)
                     i += 1
                     start = time.time()
@@ -86,8 +71,6 @@ class Controler(object):
             self.key = cv2.waitKey(1) & 0xFF
             if self.key != 255:
                 if self.key == ord('a'):
-                    #self.POW.stop()
-                    #self.DIR.stop()
                     self.pwm.set_pwm(0, 0, 0)
                     self.pwm.set_pwm(1, 0, 0)
                     print("Stop")
