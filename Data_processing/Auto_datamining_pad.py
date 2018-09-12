@@ -71,38 +71,30 @@ class Controler(object):
             self.controls()
 
     def controls(self):
-        
         trigger  = self.joy.rightTrigger() #Right trigger position (values 0 to 1.0)
         if trigger > 0:
             if trigger < 0.8:
-                self.label[0] = 0
                 self.speed = SPEED_NORMAL
             else:
-                self.label[0] = 1
                 self.speed = SPEED_FAST
         else:
             self.label[0] = -1
             self.speed = 0
-            
+        self.label[0] = trigger
         cur_x = self.joy.leftX()      #X-axis of the left stick (values -1.0 to 1.0)
         if cur_x < -0.1:
             if cur_x < -0.8:
-                self.label[1] = 0
                 self.direction = DIR_L_M
             else:
-                self.label[1] = 1
                 self.direction = DIR_L
         elif cur_x > 0.1:
             if cur_x > 0.8:
-                self.label[1] = 4
                 self.direction = DIR_R_M
             else:
-                self.label[1] = 3
                 self.direction = DIR_R
         else:
-            self.label[1] = 2
             self.direction = DIR_C
-                        
+        self.label[1] = cur_x           
         self.pwm.set_pwm(0, 0, self.direction)
         self.pwm.set_pwm(1, 0, self.speed)
 

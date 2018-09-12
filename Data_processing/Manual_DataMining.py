@@ -25,8 +25,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         # take a pic
         cv2.imwrite(picname, image)
         print("snap : " + picname)
-    # Show image + infos
-    cv2.putText(image, "label = ", (10, 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, [0, 220, 0], 1)
+    # Show image
     cv2.imshow("DataSet Mining", image)
     # Clean image before the next comes
     rawCapture.truncate(0)
