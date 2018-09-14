@@ -6,9 +6,9 @@ import cv2
 
 # Setup Camera
 camera = PiCamera()
-camera.resolution = (160, 96)
+camera.resolution = (128, 64)
 camera.framerate = 60
-rawCapture = PiRGBArray(camera, size = (160, 96))
+rawCapture = PiRGBArray(camera, size = (128, 64))
 
 
 # Loop over camera frames
@@ -29,5 +29,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     cv2.imshow("DataSet Mining", image)
     # Clean image before the next comes
     rawCapture.truncate(0)
-
 
