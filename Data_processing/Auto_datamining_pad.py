@@ -78,10 +78,11 @@ class Controler(object):
                 self.speed = SPEED_NORMAL
             else:
                 self.speed = SPEED_FAST
+            self.label[0] = trigger
         else:
             self.label[0] = -1
             self.speed = 0
-        self.label[0] = trigger
+        
         cur_x = self.joy.leftX()      #X-axis of the left stick (values -1.0 to 1.0)
         if cur_x < -0.1:
             if cur_x < -0.8:
