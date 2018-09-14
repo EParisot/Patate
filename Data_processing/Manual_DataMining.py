@@ -2,6 +2,8 @@ import time
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 import cv2
+
+from const import *
 #############################################
 
 # Setup Camera
