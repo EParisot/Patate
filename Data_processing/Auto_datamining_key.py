@@ -10,7 +10,6 @@ import Adafruit_PCA9685
 import time
 from picamera import PiCamera
 from picamera.array import PiRGBArray
-
 import sys
 
 from const import *
@@ -137,8 +136,8 @@ if __name__ == "__main__":
       pass
     controler = Controler()
     controler.videoLoop()
-    
-    #GPIO.cleanup()
+    controler.camera.close()
+
 
 
 

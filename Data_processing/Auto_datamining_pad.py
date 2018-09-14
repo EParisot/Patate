@@ -11,6 +11,7 @@ from PIL import Image
 import sys
 
 from const import *
+
 #############################################
 
 class Controler(object):
@@ -55,7 +56,7 @@ class Controler(object):
                 if time.time() - start > self.delay:
                     im = Image.fromarray(image, 'RGB')
                     t_stamp = time.time()
-                    picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[1]) + "_" + str(self.label[0]) + "_" + str(t_stamp) + ".jpg"
+                    picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
                     im.save(picname)
                     print(str(i) + " - snap : " + picname)
                     i += 1
@@ -72,15 +73,15 @@ class Controler(object):
 
     def controls(self):
         trigger  = self.joy.rightTrigger() #Right trigger position (values 0 to 1.0)
-        if trigger > 0.0:
+        if trigger > 0:
             if trigger < 0.8:
                 self.speed = SPEED_NORMAL
             else:
                 self.speed = SPEED_FAST
-            self.label[0] = round(trigger, 2)
         else:
             self.label[0] = -1
             self.speed = 0
+        self.label[0] = trigger
         cur_x = self.joy.leftX()      #X-axis of the left stick (values -1.0 to 1.0)
         if cur_x < -0.1:
             if cur_x < -0.8:
@@ -94,7 +95,7 @@ class Controler(object):
                 self.direction = DIR_R
         else:
             self.direction = DIR_C
-        self.label[1] = round(cur_x, 2)
+        self.label[1] = cur_x           
         self.pwm.set_pwm(0, 0, self.direction)
         self.pwm.set_pwm(1, 0, self.speed)
 
