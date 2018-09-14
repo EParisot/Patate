@@ -10,7 +10,6 @@ camera.resolution = IM_SIZE
 camera.framerate = 60
 rawCapture = PiRGBArray(camera, size = IM_SIZE)
 
-
 # Loop over camera frames
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # convert img as Array
@@ -29,5 +28,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     cv2.imshow("DataSet Mining", image)
     # Clean image before the next comes
     rawCapture.truncate(0)
-
 
