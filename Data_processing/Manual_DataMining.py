@@ -6,9 +6,9 @@ import cv2
 
 # Setup Camera
 camera = PiCamera()
-camera.resolution = (160, 96)
+camera.resolution = IM_SIZE
 camera.framerate = 60
-rawCapture = PiRGBArray(camera, size = (160, 96))
+rawCapture = PiRGBArray(camera, size = IM_SIZE)
 
 
 # Loop over camera frames

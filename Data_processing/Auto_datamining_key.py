@@ -38,9 +38,9 @@ class Controler(object):
         
         # Setup Camera
         self.camera = PiCamera()
-        self.camera.resolution = (160, 96)
+        self.camera.resolution = IM_SIZE
         self.camera.framerate = 60
-        self.rawCapture = PiRGBArray(self.camera, size = (160, 96))
+        self.rawCapture = PiRGBArray(self.camera, size = IM_SIZE)
         time.sleep(0.5)
         
         self.key = -1
