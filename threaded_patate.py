@@ -1,0 +1,73 @@
+# import the necessary packages
+from imutils.video.pivideostream import PiVideoStream
+import imutils
+import time
+from keras.models import load_model
+import numpy as np
+import sys
+import Adafruit_PCA9685
+
+model = load_model(sys.argv[2])
+print("Model loaded")
+
+# Starting loop
+print("Ready ! press CTRL+C to START/STOP :")
+try:
+    while True:
+        pass
+except KeyboardInterrupt:
+    pass
+
+speed = SPEED_FAST
+direction = DIR_C
+
+# Init engines
+pwm = Adafruit_PCA9685.PCA9685()
+pwm.set_pwm_freq(50)
+
+# Handle START/STOP event
+try:
+    # created a *threaded *video stream, allow the camera sensor to warmup,
+    vs = PiVideoStream().start()
+    time.sleep(2.0)
+    # loop over some frames...this time using the threaded stream
+    while True:
+            # grab the frame from the threaded video stream and resize it
+            # to have a maximum width of
+            frame = vs.read()
+            frame = imutils.resize(frame, width=160, height=96)
+            
+            image = np.array(frame)
+            ##  # Model prediction
+            preds = model.predict(image)
+            preds = [np.argmax(pred, axis=1) for pred in preds]
+            ##  # Action
+            if preds[1] == 0:
+                speed = SPEED_NORMAL
+                direction = DIR_L_M
+            elif preds[1] == 1:
+                speed = SPEED_NORMAL
+                direction = DIR_L
+            elif preds[1] == 2:
+                if preds[0] == 1:
+                    speed = SPEED_FAST
+                else:
+                    speed = SPEED_NORMAL
+                direction = DIR_C
+            elif preds[1] == 3:
+                speed = SPEED_NORMAL
+                direction = DIR_R
+            elif preds[1] == 4:
+                speed = SPEED_NORMAL
+                direction = DIR_R_M
+            ##  # Apply values to engines   
+            pwm.set_pwm(0, 0, direction)
+            pwm.set_pwm(1, 0, speed)
+
+
+except:
+    # Stop the machine
+    pwm.set_pwm(0, 0, 0)
+    pwm.set_pwm(1, 0, 0)
+    vs.stop()
+print("Stop")
