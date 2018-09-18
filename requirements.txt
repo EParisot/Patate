@@ -1,6 +1,6 @@
-Pillow
-tensorflow
+tensorflow==1.1.0
 keras==2.1.5
+Pillow
 pandas
 numpy
 h5py
