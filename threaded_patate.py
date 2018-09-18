@@ -1,4 +1,3 @@
-# import the necessary packages
 from pivideostream import PiVideoStream
 import imutils
 import time
