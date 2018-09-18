@@ -78,7 +78,7 @@ class Controler(object):
                 self.speed = SPEED_NORMAL
             else:
                 self.speed = SPEED_FAST
-            self.label[0] = trigger
+            self.label[0] = round(trigger, 2)
         else:
             self.label[0] = -1
             self.speed = 0
@@ -96,7 +96,7 @@ class Controler(object):
                 self.direction = DIR_R
         else:
             self.direction = DIR_C
-        self.label[1] = cur_x           
+        self.label[1] = round(cur_x, 2)           
         self.pwm.set_pwm(0, 0, self.direction)
         self.pwm.set_pwm(1, 0, self.speed)
 
