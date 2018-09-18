@@ -7,6 +7,7 @@ import sys
 import Adafruit_PCA9685
 from const import *
 
+#Load model
 model = load_model(sys.argv[1])
 print("Model loaded")
 
