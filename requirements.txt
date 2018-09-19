@@ -4,3 +4,7 @@ Pillow
 pandas
 numpy
 h5py
+adafruit-pca9685
+
+## XboxControler:
+# sudo apt-get install xboxdrv

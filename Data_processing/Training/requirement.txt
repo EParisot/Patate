@@ -1,0 +1,8 @@
+jupyter
+numpy
+matplotlib
+tensorflow==1.1.0
+keras==2.1.5
+pandas
+Pillow
+h5py
