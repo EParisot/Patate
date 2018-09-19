@@ -1,13 +1,13 @@
-# Patate
+# Patate42
 An autonomous RC car to compete the IronCar Challenge...
 
 ![](IMG_20180210_150832.jpg)
 
-Patate42 won the first french edition of IronCar race !!!
+Patate42 won the first (and third) french IronCar race edition !!!
 
 # Installation :
 
-## Raspberry :
+## on Raspberry :
 
 ```
 git clone https://github.com/EParisot/Patate.git
@@ -20,7 +20,7 @@ To use a Xbox gamepad :
 sudo apt-get install xboxdrv
 ```
 
-## Computer :
+## on Computer :
 
 ```
 git clone https://github.com/EParisot/Patate.git
@@ -52,9 +52,17 @@ cd Data_processing
 python Manual_datamining.py
 ```
 
-## Train (Computer) :
+## Train model (Computer) :
 
 ```
 cd Patate/Data_processing/Training
 jupyter notebook
 ```
+
+## AutoPilot (RPi) :
+
+```
+cd Patate
+python patateScript_threaded.py myModel.h5
+```
+
