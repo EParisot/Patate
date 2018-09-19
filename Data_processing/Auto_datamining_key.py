@@ -1,8 +1,4 @@
-try:
-    import cv2
-except:
-    print("run 'workon cv' before you start the script")
-    exit(0)
+import cv2
 
 # Import the PCA9685 module.
 import Adafruit_PCA9685
