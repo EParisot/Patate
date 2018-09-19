@@ -1,15 +1,24 @@
 from pivideostream import PiVideoStream
-import imutils
-import time
 from keras.models import load_model
-import numpy as np
-import sys
 import Adafruit_PCA9685
 from const import *
+import numpy as np
+import sys
+import time
 
 #Load model
 model = load_model(sys.argv[1])
 print("Model loaded")
+
+# Init engines
+speed = SPEED_FAST
+direction = DIR_C
+pwm = Adafruit_PCA9685.PCA9685()
+pwm.set_pwm_freq(50)
+
+# created a *threaded *video stream, allow the camera sensor to warmup
+vs = PiVideoStream().start()
+time.sleep(2.0)
 
 # Starting loop
 print("Ready ! press CTRL+C to START/STOP :")
@@ -18,17 +27,6 @@ try:
         pass
 except KeyboardInterrupt:
     pass
-
-speed = SPEED_FAST
-direction = DIR_C
-
-# Init engines
-pwm = Adafruit_PCA9685.PCA9685()
-pwm.set_pwm_freq(50)
-
-# created a *threaded *video stream, allow the camera sensor to warmup,
-vs = PiVideoStream().start()
-time.sleep(2.0)
 
 # Handle START/STOP event
 try:
