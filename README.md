@@ -52,6 +52,8 @@ cd Data_processing
 python Manual_datamining.py
 ```
 
+All pictures goes to Patate/Pics
+
 ## Train model (Computer) :
 
 ```
