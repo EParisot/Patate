@@ -64,7 +64,7 @@ try:
         print("Go ! (dir)")
         pwm.set_pwm(1, 0, SPEED_NORMAL)
         ##  # Capture frames
-        for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        for frame in camera.capture_continuous(rawCapture, format="rgb", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
             image = np.array([img])

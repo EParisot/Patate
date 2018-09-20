@@ -28,20 +28,12 @@ try:
 except KeyboardInterrupt:
     pass
 
-from Pillow import Image
-
 # Handle START/STOP event
 try:
     # loop over some frames...this time using the threaded stream
     while True:
-            # grab the frame from the threaded video stream and resize it
-            # to have a maximum width of
+            # grab the frame from the threaded video stream 
             frame = vs.read()
-
-            image = Image.fromarray(frame)
-            image.save("./test.jpg")
-
-            
             image = np.array([frame])
             ##  # Model prediction
             preds = model.predict(image)

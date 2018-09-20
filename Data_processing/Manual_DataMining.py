@@ -10,6 +10,7 @@ from const import *
 camera = PiCamera()
 camera.resolution = IM_SIZE
 camera.framerate = 60
+#camera.color_effects = (128,128)
 rawCapture = PiRGBArray(camera, size = IM_SIZE)
 
 # Loop over camera frames
