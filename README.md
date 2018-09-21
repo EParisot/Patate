@@ -70,11 +70,11 @@ Augmentation scrits can be found in Patate/Data_processing/Augmentation
 usages:
 
 ```
-python 5to3.py [folder]		->		turn 2speeds/5directions labels into 2speeds/3directions
-python b_w.py [folder]		->		turn all pictures black and white
-python rename.py [folder]	->		rename pictures direction label with the folders name (ex: rename '0_4_4565432345.jpg' to '0_0_4565432345.jpg' in '/0' folder)
-python tags.py [folder]		->		retag discrete to categorical labels
-python reverse.py [folder]	->		apply a mirror effect on pics by value (comment/uncomment) and rename to opposite value (and add a 'r' in filename)
+python 5to3.py [folder]		-> turn 2speeds/5directions labels into 2speeds/3directions
+python b_w.py [folder]		-> turn all pictures black and white
+python rename.py [folder]	-> rename pictures direction label with the folders name (ex: rename '0_4_4565432345.jpg' to '0_0_4565432345.jpg' in '/0' folder)
+python tags.py [folder]		-> retag discrete to categorical labels
+python reverse.py [folder]	-> apply a mirror effect on pics by value (comment/uncomment) and rename to opposite value (and add a 'r' in filename)
 ```
 
 ## Train model (Computer) :
