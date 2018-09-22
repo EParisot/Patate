@@ -61,7 +61,7 @@ cd Data_processing
 python Manual_datamining.py
 ```
 
-## Data Augmentation / Balancing :
+## Data Augmentation / Balancing (computer):
 
 All pictures goes to Patate/Pics/Auto or Patate/Pics/Manual (create folder(s) if needed)
 
