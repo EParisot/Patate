@@ -20,6 +20,8 @@ pwm.set_pwm_freq(50)
 vs = PiVideoStream().start()
 time.sleep(2.0)
 
+NORM = 1.0/255.0
+
 # Starting loop
 print("Ready ! press CTRL+C to START/STOP :")
 try:
@@ -34,7 +36,7 @@ try:
     while True:
             # grab the frame from the threaded video stream 
             frame = vs.read()
-            image = np.array([frame])
+            image = np.array([frame]) * NORM
             ##  # Model prediction
             preds = model.predict(image)
             preds = [np.argmax(pred, axis=1) for pred in preds]

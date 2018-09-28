@@ -16,6 +16,8 @@ direction = DIR_C
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
+NORM = 1.0/255.0
+
 # created a *threaded *video stream, allow the camera sensor to warmup
 vs = PiVideoStream().start()
 time.sleep(2.0)
@@ -36,7 +38,7 @@ try:
             # to have a maximum width of
             frame = vs.read()
                 
-            image = np.array([frame])
+            image = np.array([frame]) * NORM
             ##  # Model prediction
             preds = model.predict(image)
             preds = [np.argmax(pred, axis=1) for pred in preds]
