@@ -56,8 +56,6 @@ direction = DIR_C
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
-NORM = 1.0 / 255.0
-
 # Handle START/STOP event
 try:
 
@@ -69,7 +67,7 @@ try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img]) * NORM
+            image = np.array([img]) / 255.0
             ##  # Model prediction
             preds = model.predict(image)
             preds = np.argmax(preds, axis=1)
@@ -94,7 +92,7 @@ try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img])
+            image = np.array([img]) / 255.0
             ##  # Model prediction
             preds = model.predict(image)
             preds = np.argmax(preds, axis=1)
@@ -127,7 +125,7 @@ try:
         for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
             ##  # Grab Numpy Array
             img = frame.array
-            image = np.array([img])
+            image = np.array([img]) / 255.0
             ##  # Model prediction
             preds = model.predict(image)
             preds = [np.argmax(pred, axis=1) for pred in preds]
