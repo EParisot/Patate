@@ -20,6 +20,12 @@ pwm.set_pwm_freq(50)
 vs = PiVideoStream().start()
 time.sleep(2.0)
 
+from PIL import Image
+frame = vs.read()
+img = Image.fromarray(frame)
+img.save("test.png")
+
+
 # Starting loop
 print("Ready ! press CTRL+C to START/STOP :")
 try:
