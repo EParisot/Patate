@@ -42,8 +42,8 @@ try:
             frame = vs.read()
             image = np.array([frame]) / 255.0
             ##  # Model prediction
-            preds = model.predict(image)
-            preds = [np.argmax(pred, axis=1) for pred in preds]
+            preds_raw = model.predict(image)
+            preds = [np.argmax(pred, axis=1) for pred in preds_raw]
             ##  # Action
             if preds[1] == 0:
                 speed = SPEED_NORMAL
@@ -66,6 +66,7 @@ try:
             ##  # Apply values to engines   
             pwm.set_pwm(0, 0, direction)
             pwm.set_pwm(1, 0, speed)
+            
 except:
     pass
 
