@@ -36,6 +36,7 @@ except KeyboardInterrupt:
 
 # Handle START/STOP event
 try:
+    head = H_UP
     # loop over some frames...this time using the threaded stream
     while True:
             # grab the frame from the threaded video stream 
@@ -46,6 +47,8 @@ try:
             preds = [np.argmax(pred, axis=1) for pred in preds_raw]
             ##  # Action
             if preds[1] == 0:
+                if speed == SPEED_NORMAL:
+                    head = H_DOWN
                 speed = SPEED_NORMAL
                 direction = DIR_L_M
             elif preds[1] == 1:
@@ -53,6 +56,8 @@ try:
                 direction = DIR_L
             elif preds[1] == 2:
                 if preds[0] == 1:
+                    if speed == SPEED_FAST:
+                        head = H_UP
                     speed = SPEED_FAST
                 else:
                     speed = SPEED_NORMAL
@@ -61,11 +66,15 @@ try:
                 speed = SPEED_NORMAL
                 direction = DIR_R
             elif preds[1] == 4:
+                if speed == SPEED_NORMAL:
+                    head = H_DOWN
                 speed = SPEED_NORMAL
                 direction = DIR_R_M
             ##  # Apply values to engines   
             pwm.set_pwm(0, 0, direction)
             pwm.set_pwm(1, 0, speed)
+            ## # Move Head
+            pwm.set_pwm(2, 0, head)
             
 except:
     pass
@@ -73,5 +82,6 @@ except:
 # Stop the machine
 pwm.set_pwm(0, 0, 0)
 pwm.set_pwm(1, 0, 0)
+pwm.set_pwm(2, 0, 0)
 vs.stop()
 print("Stop")
