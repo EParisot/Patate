@@ -4,12 +4,12 @@ import time
 pwm = Adafruit_PCA9685.PCA9685()
 pwm.set_pwm_freq(50)
 
-UP = 230
+UP = 200
 DOWN = 180
 
 time.sleep(1)
 pwm.set_pwm(2, 0, UP)
-time.sleep(1)
+time.sleep(3)
 pwm.set_pwm(2, 0, DOWN)
 time.sleep(1)
 pwm.set_pwm(2, 0, 0)
