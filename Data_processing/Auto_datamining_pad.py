@@ -56,7 +56,7 @@ class Controler(object):
                 if time.time() - start > self.delay:
                     im = Image.fromarray(image, 'RGB')
                     t_stamp = time.time()
-                    picname = "/home/pi/Documents/Patate/Pics/Auto/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
+                    picname = "/home/pi/Documents/Patate/Pics/Auto/obstacle/" + str(self.label[0]) + "_" + str(self.label[1]) + "_" + str(t_stamp) + ".jpg"
                     im.save(picname)
                     print(str(i) + " - snap : " + picname)
                     i += 1
