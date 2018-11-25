@@ -5,6 +5,12 @@ An autonomous RC car to compete the IronCar Challenge...
 
 Patate42 won the first (and third) french IronCar race edition !!!
 
+## UPDATE !!
+
+Patate42 won the IRONCAR Final 2018 !
+
+![](IMG_20181124_202851.jpg)
+
 # Hardware Config :
 
 	* Tamyia TT-02 4WD RC car + larger wheels
@@ -12,6 +18,10 @@ Patate42 won the first (and third) french IronCar race edition !!!
 	* Rpi camera (depends on your taste, we use a wide angle fisheye)
 	* Adafruit PWM Hat
 	* Jumper cables, ...
+
+# Dataset :
+
+https://drive.google.com/drive/folders/1RkS-dGwbgnpD9yIdXqCuHKk6IJnPAIvv?usp=sharing
 
 # Installation :
 
@@ -88,19 +98,5 @@ jupyter notebook
 
 ```
 cd Patate
-
-python patateScript5.py [myModel.h5]
-
-or
-
 python patateScript5_threaded.py [myModel.h5]
-
-or
-
-python patateScript3.py [myModel.h5]
-
-or
-
-python patateScript3_threaded.py [myModel.h5]
 ```
-
