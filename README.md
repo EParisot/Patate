@@ -11,6 +11,8 @@ Patate42 won the IRONCAR Final 2018 !
 
 ![](IMG_20181124_202851.jpg)
 
+[![Watch the video](IMG_20181124_202857.jpg)](https://drive.google.com/open?id=1keM8-AhfdoY7h9ngDyNgho8ZZcgjz46S)
+
 # Hardware Config :
 
 	* Tamyia TT-02 4WD RC car + larger wheels
