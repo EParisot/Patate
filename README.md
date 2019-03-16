@@ -52,10 +52,17 @@ pip install -r requirement.txt
 
 ## Collect Data (manual drive + take images/labels) (RPi) :
 
+With Xbox Gamepad
 ```
 cd Data_processing
 sudo python Auto_datamining_pad.py 0.1
 ```
+
+Or with a Keyboard
+```
+python Auto_datamining_key.py 0.1
+```
+
 to take one picture every 0.1 sec (to just control without taking pictures, don't specify any value)
 
 If you don't have Xbox Gamepad, you can use the computer keyboard
@@ -102,3 +109,9 @@ jupyter notebook
 cd Patate
 python patateScript5_threaded.py [myModel.h5]
 ```
+
+## Rpi CLI / Desktop
+```
+sudo raspi-config
+```
+-> boot option -> Desktop / CLI = Destop autologin
