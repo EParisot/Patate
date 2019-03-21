@@ -17,7 +17,7 @@ Patate42 won the IRONCAR Final 2018 !
 
 	* Tamyia TT-02 4WD RC car + larger wheels
 	* RaspberryPi 3B + battery pack (we use a Kuman)
-	* Rpi camera (depends on your taste, we use a wide angle fisheye)
+	* Rpi camera (depends on your taste)
 	* Adafruit PWM Hat
 	* Jumper cables, ...
 
@@ -57,12 +57,6 @@ With Xbox Gamepad
 cd Data_processing
 sudo python Auto_datamining_pad.py 0.1
 ```
-
-Or with a Keyboard
-```
-python Auto_datamining_key.py 0.1
-```
-
 to take one picture every 0.1 sec (to just control without taking pictures, don't specify any value)
 
 If you don't have Xbox Gamepad, you can use the computer keyboard
