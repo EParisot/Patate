@@ -34,6 +34,8 @@ git clone https://github.com/EParisot/Patate.git
 cd Patate
 pip install -r requirement.txt
 ```
+Warning : due to a security risk, tensorflow dependency have been updated from 1.1.0 to 1.9.0
+Feel free to roll it back in case of problem (or just to avoid warnings...)
 
 To use a Xbox gamepad :
 ```
