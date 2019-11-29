@@ -1,9 +1,11 @@
-SPEED_NORMAL = 320# top speed 314
-SPEED_FAST = 315#top speed 307
+SPEED_NORMAL = 316 #317# top speed 314
+#SPEED_NORMAL = 322# top speed 314
+SPEED_FAST = 311 #314#top speed 307
+#SPEED_FAST = 318#top speed 307
 DIR_L_M = 250
-DIR_L = 295
+DIR_L = 290
 DIR_C = 327
-DIR_R = 359
+DIR_R = 364
 DIR_R_M = 400
 
 H_UP = 150
