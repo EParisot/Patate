@@ -36,7 +36,7 @@ except KeyboardInterrupt:
 
 # Handle START/STOP event
 try:
-    head = H_UP
+    #head = H_UP
     speed = SPEED_NORMAL
     pwm.set_pwm(1, 0, speed)
     # loop over some frames...this time using the threaded stream
@@ -57,7 +57,7 @@ try:
             ##  # Apply values to engines
             pwm.set_pwm(0, 0, direction)
              # Move Head
-            pwm.set_pwm(2, 0, head)
+            #pwm.set_pwm(2, 0, head)
 
 except:
     pass
@@ -65,6 +65,6 @@ except:
 # Stop the machine
 pwm.set_pwm(0, 0, 0)
 pwm.set_pwm(1, 0, 0)
-pwm.set_pwm(2, 0, 0)
+#pwm.set_pwm(2, 0, 0)
 vs.stop()
 print("Stop")
