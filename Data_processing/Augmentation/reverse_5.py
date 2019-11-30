@@ -5,7 +5,7 @@ from PIL import Image
 if len(sys.argv) > 1:
     for elem in os.listdir(sys.argv[1]):
         elem_tab = elem.split("_")
-        if len(elem_tab) == 3 and (elem_tab[1] == "0" or elem_tab[1] == "4"):
+        if len(elem_tab) == 3):
             img = Image.open(os.path.join(sys.argv[1], elem))
             img = img.transpose(Image.FLIP_LEFT_RIGHT)
             if elem_tab[1] == "0":
