@@ -1,7 +1,7 @@
 jupyter
 numpy
 matplotlib
-tensorflow==1.9.0
+tensorflow==2.9.3
 keras==2.1.5
 pandas
 Pillow
